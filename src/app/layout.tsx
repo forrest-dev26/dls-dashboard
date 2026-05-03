@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Lora, IBM_Plex_Mono } from "next/font/google";
+import { TabNav } from "@/components/TabNav";
 import "./globals.css";
 
 const inter = Inter({
@@ -22,8 +23,8 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Dead Letter Studio · Owner Dashboard",
-  description: "Owner dashboard for Dead Letter Studio",
+  title: "Personal OS · Dashboard",
+  description: "Christopher's personal operating system dashboard",
 };
 
 export default function RootLayout({
@@ -36,7 +37,10 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${lora.variable} ${ibmPlexMono.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <TabNav />
+        {children}
+      </body>
     </html>
   );
 }
