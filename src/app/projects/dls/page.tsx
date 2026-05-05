@@ -3,7 +3,7 @@
 
 import { fetchDashboardMetrics } from "@/lib/metrics";
 import { fetchRecentActivity, fetchYesterdaysSeriesNewOrders } from "@/lib/shopify";
-import { fetchFlows } from "@/lib/klaviyo";
+import { fetchFlowsResult } from "@/lib/klaviyo";
 import { SeriesNewOrdersCard } from "@/components/series-new-orders-card";
 import { Sidebar } from "@/components/sidebar";
 import { Topbar } from "@/components/topbar";
@@ -25,13 +25,18 @@ export default async function DlsPage() {
   const [metricsResult, activityResult, flowsResult, seriesOrdersResult] = await Promise.allSettled([
     fetchDashboardMetrics(),
     fetchRecentActivity(8),
-    fetchFlows(),
+    fetchFlowsResult(),
     fetchYesterdaysSeriesNewOrders(),
   ]);
 
   const metrics = metricsResult.status === "fulfilled" ? metricsResult.value : null;
   const activity = activityResult.status === "fulfilled" ? activityResult.value : [];
-  const flows = flowsResult.status === "fulfilled" ? flowsResult.value : [];
+  const flowsState =
+    flowsResult.status === "fulfilled"
+      ? flowsResult.value
+      : { ok: false, flows: [], error: "unexpected error" };
+  const flows = flowsState.flows;
+  const flowsReachable = flowsState.ok;
   const seriesOrders = seriesOrdersResult.status === "fulfilled"
     ? seriesOrdersResult.value
     : { date: "", series: { Salem: { count: 0, orders: [] }, Titanic: { count: 0, orders: [] }, Asylum: { count: 0, orders: [] }, Other: { count: 0, orders: [] } }, total: 0 };
@@ -119,9 +124,17 @@ export default async function DlsPage() {
           />
           <KpiTile
             label="Active flows"
-            value={String(flows.filter((f) => f.status === "live").length)}
-            delta={`${flows.filter((f) => f.status === "draft").length} in draft`}
-            deltaTone="flat"
+            value={
+              flowsReachable
+                ? String(flows.filter((f) => f.status === "live").length)
+                : "—"
+            }
+            delta={
+              flowsReachable
+                ? `${flows.filter((f) => f.status === "draft").length} in draft`
+                : "Klaviyo unreachable"
+            }
+            deltaTone={flowsReachable ? "flat" : "bad"}
           />
         </section>
 
@@ -142,7 +155,7 @@ export default async function DlsPage() {
 
         <section className="mt-6 grid grid-cols-[1.4fr_1fr] gap-4 max-[1100px]:grid-cols-1">
           <ActivityFeed items={activity} />
-          <FlowStatus flows={flows} />
+          <FlowStatus flows={flows} reachable={flowsReachable} error={flowsState.error} />
         </section>
 
         {/* DLS Daily Tasks */}

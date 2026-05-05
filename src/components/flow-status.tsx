@@ -1,11 +1,43 @@
 import type { KlaviyoFlow } from "@/lib/klaviyo";
 
-export function FlowStatus({ flows }: { flows: KlaviyoFlow[] }) {
+export function FlowStatus({
+  flows,
+  reachable = true,
+  error,
+}: {
+  flows: KlaviyoFlow[];
+  reachable?: boolean;
+  error?: string;
+}) {
+  if (!reachable) {
+    return (
+      <div className="rounded-xl border border-line bg-white p-5 border-l-[3px] border-l-bad">
+        <h3 className="m-0 mb-2 font-display text-base font-medium text-bad">
+          Klaviyo flow status
+        </h3>
+        <div className="text-[13px] text-ink-2">
+          Klaviyo API is currently unreachable.
+        </div>
+        {error && (
+          <div className="mt-1 font-mono text-[11px] text-ink-3 break-all">
+            {error.length > 180 ? `${error.slice(0, 180)}…` : error}
+          </div>
+        )}
+        <div className="mt-2 text-[11px] italic text-ink-3">
+          Cached flow status will resume once Klaviyo responds. Active flow KPI is shown as — not 0.
+        </div>
+      </div>
+    );
+  }
+
   if (flows.length === 0) {
     return (
       <div className="rounded-xl border border-line bg-white p-5">
         <h3 className="m-0 mb-3 font-display text-base font-medium">Klaviyo flow status</h3>
-        <div className="text-[13px] text-ink-3">No flows returned. Check API connection.</div>
+        <div className="text-[13px] text-ink-3">
+          Klaviyo returned an empty flow list. (Either there really are zero flows, or your
+          API key has read scope but no flow access.)
+        </div>
       </div>
     );
   }
