@@ -19,14 +19,7 @@ export function CockpitShell({
         {children}
       </main>
 
-      {/* Chat sidebar slot — Phase 3 */}
-      <aside className="hidden w-[320px] shrink-0 border-l border-line bg-bg-soft xl:block">
-        <div className="flex h-full items-center justify-center p-6">
-          <p className="text-center text-[12px] text-ink-4">
-            Ask Sarah sidebar — Phase 3
-          </p>
-        </div>
-      </aside>
+      {/* Chat sidebar slot — hidden until Phase 3 */}
     </div>
   );
 }
