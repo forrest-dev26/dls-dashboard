@@ -1,5 +1,5 @@
 import { requireOpenclawToken } from "@/lib/openclaw-auth";
-import { supabase } from "@/lib/supabase";
+import { q } from "@/lib/db";
 
 export async function POST(req: Request) {
   if (!requireOpenclawToken(req)) {
@@ -20,22 +20,14 @@ export async function POST(req: Request) {
     return Response.json({ error: "title is required" }, { status: 400 });
   }
 
-  const { data, error } = await supabase
-    .from("proposals")
-    .insert({
-      title,
-      body: proposalBody ?? null,
-      project: project ?? null,
-      category: category ?? "recommendation",
-      context_url: context_url ?? null,
-      metadata: metadata ?? {},
-    })
-    .select()
-    .single();
-
-  if (error) {
-    return Response.json({ error: error.message }, { status: 500 });
+  try {
+    const rows = await q(
+      `insert into proposals (title, body, project, category, context_url, metadata) values ($1, $2, $3, $4, $5, $6) returning *`,
+      [title, proposalBody ?? null, project ?? null, category ?? "recommendation", context_url ?? null, JSON.stringify(metadata ?? {})]
+    );
+    return Response.json({ ok: true, proposal: rows[0] }, { status: 201 });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Unknown error";
+    return Response.json({ error: message }, { status: 500 });
   }
-
-  return Response.json({ ok: true, proposal: data }, { status: 201 });
 }

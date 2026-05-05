@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase";
+import { q } from "@/lib/db";
 
 export async function POST(req: Request) {
   const body = await req.json();
@@ -17,36 +17,26 @@ export async function POST(req: Request) {
     return Response.json({ error: `decision must be one of: ${validDecisions.join(", ")}` }, { status: 400 });
   }
 
-  // Update the proposal
-  const updateData: Record<string, unknown> = {
-    status: decision,
-    decided_at: new Date().toISOString(),
-  };
-  if (note) updateData.decision_note = note;
-  if (decision === "snoozed") {
-    updateData.snooze_until = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
+  try {
+    // Update the proposal
+    const snoozeUntil = decision === "snoozed"
+      ? new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
+      : null;
+
+    await q(
+      `update proposals set status = $1, decided_at = now(), decision_note = $2, snooze_until = $3 where id = $4`,
+      [decision, note ?? null, snoozeUntil, proposal_id]
+    );
+
+    // Append to decisions log
+    await q(
+      `insert into decisions (proposal_id, decision, note, decided_via) values ($1, $2, $3, 'dashboard')`,
+      [proposal_id, decision, note ?? null]
+    );
+
+    return Response.json({ ok: true });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Unknown error";
+    return Response.json({ error: message }, { status: 500 });
   }
-
-  const { error: updateError } = await supabase
-    .from("proposals")
-    .update(updateData)
-    .eq("id", proposal_id);
-
-  if (updateError) {
-    return Response.json({ error: updateError.message }, { status: 500 });
-  }
-
-  // Append to decisions log
-  const { error: logError } = await supabase.from("decisions").insert({
-    proposal_id,
-    decision,
-    note: note ?? null,
-    decided_via: "dashboard",
-  });
-
-  if (logError) {
-    return Response.json({ error: logError.message }, { status: 500 });
-  }
-
-  return Response.json({ ok: true });
 }

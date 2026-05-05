@@ -2,10 +2,8 @@ import { q } from "@/lib/db";
 
 export async function GET() {
   try {
-    const rows = await q(
-      `select * from running_tasks where status = 'running' order by started_at desc`
-    );
-    return Response.json({ tasks: rows });
+    const rows = await q(`select * from pulse`);
+    return Response.json({ pulse: rows[0] ?? null });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Unknown error";
     return Response.json({ error: message }, { status: 500 });

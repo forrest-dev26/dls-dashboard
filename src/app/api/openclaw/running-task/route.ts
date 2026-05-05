@@ -1,5 +1,5 @@
 import { requireOpenclawToken } from "@/lib/openclaw-auth";
-import { supabase } from "@/lib/supabase";
+import { q } from "@/lib/db";
 
 export async function POST(req: Request) {
   if (!requireOpenclawToken(req)) {
@@ -18,22 +18,16 @@ export async function POST(req: Request) {
     return Response.json({ error: "label and task_type are required" }, { status: 400 });
   }
 
-  const { data, error } = await supabase
-    .from("running_tasks")
-    .insert({
-      label,
-      task_type,
-      session_key: session_key ?? null,
-      metadata: metadata ?? {},
-    })
-    .select()
-    .single();
-
-  if (error) {
-    return Response.json({ error: error.message }, { status: 500 });
+  try {
+    const rows = await q(
+      `insert into running_tasks (label, task_type, session_key, metadata) values ($1, $2, $3, $4) returning *`,
+      [label, task_type, session_key ?? null, JSON.stringify(metadata ?? {})]
+    );
+    return Response.json({ ok: true, task: rows[0] }, { status: 201 });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Unknown error";
+    return Response.json({ error: message }, { status: 500 });
   }
-
-  return Response.json({ ok: true, task: data }, { status: 201 });
 }
 
 export async function PATCH(req: Request) {
@@ -52,20 +46,19 @@ export async function PATCH(req: Request) {
     return Response.json({ error: "session_key and status are required" }, { status: 400 });
   }
 
-  const updateData: Record<string, unknown> = { status };
-  if (status === "completed" || status === "failed" || status === "killed") {
-    updateData.ended_at = new Date().toISOString();
+  try {
+    const endedAt = ["completed", "failed", "killed"].includes(status) ? "now()" : "ended_at";
+    const metaClause = metadata ? `, metadata = $3` : "";
+    const params: unknown[] = [status, session_key];
+    if (metadata) params.push(JSON.stringify(metadata));
+
+    await q(
+      `update running_tasks set status = $1, ended_at = ${endedAt}${metaClause} where session_key = $2`,
+      params
+    );
+    return Response.json({ ok: true });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Unknown error";
+    return Response.json({ error: message }, { status: 500 });
   }
-  if (metadata) updateData.metadata = metadata;
-
-  const { error } = await supabase
-    .from("running_tasks")
-    .update(updateData)
-    .eq("session_key", session_key);
-
-  if (error) {
-    return Response.json({ error: error.message }, { status: 500 });
-  }
-
-  return Response.json({ ok: true });
 }

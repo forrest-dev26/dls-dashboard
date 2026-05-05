@@ -1,5 +1,5 @@
 import { requireOpenclawToken } from "@/lib/openclaw-auth";
-import { supabase } from "@/lib/supabase";
+import { q } from "@/lib/db";
 
 export async function POST(req: Request) {
   if (!requireOpenclawToken(req)) {
@@ -17,19 +17,14 @@ export async function POST(req: Request) {
     return Response.json({ error: "title and project are required" }, { status: 400 });
   }
 
-  const { data, error } = await supabase
-    .from("blockers")
-    .insert({
-      title,
-      body: blockerBody ?? null,
-      project,
-    })
-    .select()
-    .single();
-
-  if (error) {
-    return Response.json({ error: error.message }, { status: 500 });
+  try {
+    const rows = await q(
+      `insert into blockers (title, body, project) values ($1, $2, $3) returning *`,
+      [title, blockerBody ?? null, project]
+    );
+    return Response.json({ ok: true, blocker: rows[0] }, { status: 201 });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Unknown error";
+    return Response.json({ error: message }, { status: 500 });
   }
-
-  return Response.json({ ok: true, blocker: data }, { status: 201 });
 }
