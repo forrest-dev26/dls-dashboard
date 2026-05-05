@@ -16,9 +16,9 @@ interface DailyTask {
 }
 
 const statusColors: Record<string, string> = {
-  pending: "bg-gold-soft text-gold-deep",
-  approved: "bg-sage-soft text-sage-deep",
-  started: "bg-blue-soft text-blue",
+  pending: "bg-warn-soft text-[#8F6516]",
+  approved: "bg-good-soft text-[#2D6B40]",
+  started: "bg-accent-soft text-accent-deep",
   completed: "bg-bg-soft text-ink-3 line-through",
   deferred: "bg-bg-soft text-ink-4",
   killed: "bg-bg-soft text-ink-4 line-through",

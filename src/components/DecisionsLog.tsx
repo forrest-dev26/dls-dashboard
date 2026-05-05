@@ -13,10 +13,10 @@ interface Decision {
 }
 
 const decisionColors: Record<string, string> = {
-  approved: "text-sage-deep bg-sage-soft",
-  rejected: "text-rose bg-rose-soft",
-  snoozed: "text-gold-deep bg-gold-soft",
-  revising: "text-blue bg-blue-soft",
+  approved: "text-[#2D6B40] bg-good-soft",
+  rejected: "text-[#8B3A30] bg-bad-soft",
+  snoozed: "text-[#8F6516] bg-warn-soft",
+  revising: "text-accent-deep bg-accent-soft",
 };
 
 export function DecisionsLog() {

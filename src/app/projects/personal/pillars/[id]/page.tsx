@@ -20,7 +20,7 @@ export default async function PillarPage({ params }: { params: Promise<{ id: str
   return (
     <CockpitShell title={label} subtitle="Body Man pillar detail">
       <div className="mb-4">
-        <Link href="/projects/personal" className="text-[12px] text-sage-deep hover:underline">
+        <Link href="/projects/personal" className="text-[12px] text-accent-deep hover:underline">
           &larr; Back to Personal
         </Link>
       </div>

@@ -78,7 +78,7 @@ export function ProposalCard({
           label="Yes"
           onClick={() => decide("approved")}
           loading={loading === "approved"}
-          className="border border-good bg-good-soft text-sage-deep hover:bg-good/10"
+          className="border border-good bg-good-soft text-[#2D6B40] hover:bg-good/10"
         />
         <ActionBtn
           label="No"

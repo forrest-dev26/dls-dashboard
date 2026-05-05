@@ -11,9 +11,9 @@ interface Pillar {
 }
 
 const statusDot: Record<string, string> = {
-  green: "bg-sage",
-  yellow: "bg-gold",
-  red: "bg-rose",
+  green: "bg-good",
+  yellow: "bg-warn",
+  red: "bg-bad",
 };
 
 const pillarLabels: Record<string, string> = {

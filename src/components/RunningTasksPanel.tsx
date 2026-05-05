@@ -13,9 +13,9 @@ interface RunningTask {
 }
 
 const statusColors: Record<string, string> = {
-  running: "bg-sage-soft text-sage-deep",
+  running: "bg-good-soft text-[#2D6B40]",
   completed: "bg-bg-soft text-ink-3",
-  failed: "bg-rose-soft text-rose",
+  failed: "bg-bad-soft text-[#8B3A30]",
   killed: "bg-bg-soft text-ink-3",
 };
 

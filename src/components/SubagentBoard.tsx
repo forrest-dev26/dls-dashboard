@@ -18,9 +18,9 @@ interface SubagentTask {
 }
 
 const statusColors: Record<string, string> = {
-  running: "bg-sage-soft text-sage-deep",
-  queued: "bg-gold-soft text-gold-deep",
-  suggested: "bg-blue-soft text-blue",
+  running: "bg-good-soft text-[#2D6B40]",
+  queued: "bg-warn-soft text-[#8F6516]",
+  suggested: "bg-accent-soft text-accent-deep",
 };
 
 export function SubagentBoard({ project }: { project?: string }) {
@@ -72,8 +72,8 @@ export function SubagentBoard({ project }: { project?: string }) {
         <div className="space-y-5">
           {running.length > 0 && (
             <div>
-              <h4 className="mb-2.5 flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-wide text-sage">
-                <span className="h-1.5 w-1.5 rounded-full bg-sage" />
+              <h4 className="mb-2.5 flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-wide text-good">
+                <span className="h-1.5 w-1.5 rounded-full bg-good" />
                 Running
               </h4>
               <div className="space-y-2.5">{running.map((t) => <TaskRow key={t.id} task={t} onAction={updateStatus} />)}</div>

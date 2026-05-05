@@ -18,9 +18,9 @@ const statusLabel: Record<string, string> = {
 };
 
 const statusColor: Record<string, string> = {
-  green: "text-sage-deep bg-sage-soft",
-  yellow: "text-gold-deep bg-gold-soft",
-  red: "text-rose bg-rose-soft",
+  green: "text-[#2D6B40] bg-good-soft",
+  yellow: "text-[#8F6516] bg-warn-soft",
+  red: "text-[#8B3A30] bg-bad-soft",
 };
 
 const pillarLabels: Record<string, string> = {
