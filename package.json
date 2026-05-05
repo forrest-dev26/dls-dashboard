@@ -3,23 +3,27 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3001 -H 127.0.0.1",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -p 3001 -H 127.0.0.1",
+    "db:migrate": "node --import tsx scripts/migrate.ts",
+    "db:seed": "node --import tsx scripts/seed.ts",
+    "db:reset": "dropdb --if-exists personal_os && createdb personal_os && npm run db:migrate && npm run db:seed"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.105.1",
-    "iron-session": "^8.0.4",
     "next": "16.2.4",
+    "pg": "^8.20.0",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/pg": "^8.20.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "tailwindcss": "^4",
+    "tsx": "^4.21.0",
     "typescript": "^5"
   }
 }
