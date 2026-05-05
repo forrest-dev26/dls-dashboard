@@ -121,16 +121,10 @@ export async function fetchRecentActivity(limit = 8): Promise<RecentActivityItem
         ? "The Asylum Letters"
         : order.line_items?.[0]?.title || "Unknown";
 
-    const createdAt = new Date(order.created_at);
-    const now = new Date();
-    const diffMs = now.getTime() - createdAt.getTime();
-    const diffMin = Math.floor(diffMs / 60000);
-    const when =
-      diffMin < 60
-        ? `${diffMin} minute${diffMin !== 1 ? "s" : ""} ago`
-        : diffMin < 1440
-        ? `${Math.floor(diffMin / 60)} hour${Math.floor(diffMin / 60) !== 1 ? "s" : ""} ago`
-        : `${Math.floor(diffMin / 1440)} day${Math.floor(diffMin / 1440) !== 1 ? "s" : ""} ago`;
+    // Pass through the ISO timestamp; the ActivityFeed component handles relative formatting.
+    // (Previously this lib returned a pre-formatted string like "5 hours ago", but the
+    // ActivityFeed was then re-parsing it via `new Date(...)`, producing "Invalid Date".)
+    const when = order.created_at;
 
     if (isRecurring) {
       items.push({
