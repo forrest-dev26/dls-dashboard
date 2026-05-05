@@ -88,7 +88,7 @@ export function DecisionsLog() {
         </div>
       )}
 
-      <div className="mt-4 flex justify-center gap-2">
+      {decisions.length > 0 && <div className="mt-4 flex justify-center gap-2">
         <button
           disabled={page === 0}
           onClick={() => setPage(page - 1)}
@@ -104,7 +104,7 @@ export function DecisionsLog() {
         >
           Next
         </button>
-      </div>
+      </div>}
     </div>
   );
 }
