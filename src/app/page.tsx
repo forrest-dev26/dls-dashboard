@@ -24,10 +24,10 @@ export default function HomePage() {
     <main className="mx-auto max-w-[1060px] px-8 pt-8 pb-16">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="m-0 text-[28px] font-semibold tracking-tight text-ink">
+        <h1 className="m-0 font-display text-[28px] font-medium tracking-tight text-ink" style={{ letterSpacing: '-0.015em' }}>
           {greeting}, Christopher
         </h1>
-        <p className="mt-1.5 text-[14px] text-ink-3">{dateStr} · Lakeland, FL</p>
+        <p className="mt-1.5 font-display text-[14px] font-normal text-ink-3">{dateStr} · Lakeland, FL</p>
       </div>
 
       {/* Pulse strip */}

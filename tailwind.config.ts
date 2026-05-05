@@ -10,55 +10,62 @@ const config: Config = {
     extend: {
       colors: {
         // Canvas & surfaces
-        bg: "#F6F0E7",
+        bg: "#FAF7F2",
         "bg-elev": "#FFFFFF",
-        "bg-soft": "#EDE5D8",
+        "bg-soft": "#F3EEE6",
         "bg-card": "#FAF8F4",
-        "sidebar-bg": "#20251F",
+        "sidebar-bg": "#1F2421",
         "sidebar-hover": "#2A302A",
-        "sidebar-active": "#343C34",
+        "sidebar-active": "rgba(74, 139, 130, 0.18)",
 
         // Ink / text
-        ink: "#23211E",
-        "ink-2": "#3F362E",
-        "ink-3": "#7A736A",
+        ink: "#1A1A1A",
+        "ink-2": "#4A4A4A",
+        "ink-3": "#8A8A8A",
         "ink-4": "#B7B0A6",
 
         // Borders
-        line: "#E4DDD3",
-        "line-2": "#D1C9BC",
+        line: "#EAE3D7",
+        "line-2": "#D9D0BF",
 
-        // Sage accent (positive / active)
-        sage: "#6E9E7B",
-        "sage-soft": "#E2ECDF",
-        "sage-deep": "#4E7A59",
+        // Primary accent: muted teal
+        accent: "#4A8B82",
+        "accent-deep": "#356B63",
+        "accent-soft": "#E3EEEC",
 
-        // Gold accent (warning / trial)
-        gold: "#D2B06D",
+        // Gold
+        gold: "#C9A96E",
         "gold-soft": "#F4ECDB",
-        "gold-deep": "#A68B4B",
+        "gold-deep": "#7A5A1F",
 
-        // Rose accent (risk / churn)
-        rose: "#C97A6A",
-        "rose-soft": "#F2DBD6",
-        "rose-deep": "#A85549",
+        // Status: Good (sage-green)
+        good: "#5B9D6E",
+        "good-soft": "#E2EFE5",
 
-        // Muted blue (info / schedule)
+        // Status: Warn
+        warn: "#D6A150",
+        "warn-soft": "#F6EBD6",
+
+        // Status: Bad
+        bad: "#C57064",
+        "bad-soft": "#F4DEDA",
+
+        // Info blue
         blue: "#6F9FB0",
         "blue-soft": "#E0EDF2",
+
+        // Legacy aliases (kept for existing component compat)
+        sage: "#5B9D6E",
+        "sage-soft": "#E2EFE5",
+        "sage-deep": "#2D6B40",
+        rose: "#C57064",
+        "rose-soft": "#F4DEDA",
+        "rose-deep": "#8B3A30",
 
         // Legacy DLS colors
         burgundy: "#6E1F23",
         "burgundy-deep": "#4A1418",
         "burgundy-soft": "#F2E0DE",
-
-        // Semantic
-        good: "#5B7D55",
-        "good-soft": "#E2ECDF",
-        warn: "#C29050",
-        "warn-soft": "#F4E5CC",
-        bad: "#A85549",
-        "bad-soft": "#F2DBD6",
 
         // DLS series
         "series-salem": "#4A2E2A",
@@ -72,15 +79,15 @@ const config: Config = {
         mono: ["var(--font-ibm-plex-mono)", "Menlo", "monospace"],
       },
       borderRadius: {
-        sm: "4px",
-        md: "8px",
-        lg: "12px",
-        xl: "16px",
+        sm: "6px",
+        md: "10px",
+        lg: "14px",
+        xl: "20px",
       },
       boxShadow: {
-        sm: "0 1px 2px rgba(35,33,30,0.04), 0 1px 1px rgba(35,33,30,0.02)",
-        md: "0 4px 12px rgba(35,33,30,0.06), 0 2px 4px rgba(35,33,30,0.03)",
-        lg: "0 12px 32px rgba(35,33,30,0.08), 0 4px 8px rgba(35,33,30,0.03)",
+        sm: "0 1px 2px rgba(26,26,26,0.04), 0 1px 1px rgba(26,26,26,0.03)",
+        md: "0 4px 12px rgba(26,26,26,0.06), 0 2px 4px rgba(26,26,26,0.03)",
+        lg: "0 12px 32px rgba(26,26,26,0.08), 0 4px 8px rgba(26,26,26,0.04)",
       },
     },
   },
