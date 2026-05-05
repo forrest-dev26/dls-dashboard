@@ -42,7 +42,7 @@ export function ProposalCard({
 
   if (decided) {
     return (
-      <div className="rounded-xl border border-line bg-bg-soft p-4 opacity-60">
+      <div className="rounded-lg border border-line bg-bg-soft p-4 opacity-60">
         <p className="text-[13px] text-ink-3">
           <strong>{proposal.title}</strong> — done
         </p>
@@ -51,7 +51,7 @@ export function ProposalCard({
   }
 
   return (
-    <div className="rounded-xl border border-line bg-white p-5 transition-shadow hover:shadow-sm">
+    <div className="rounded-lg border border-line bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
       <div className="mb-1.5 flex items-start justify-between gap-3">
         <h4 className="m-0 text-[14px] font-semibold leading-snug text-ink">{proposal.title}</h4>
         {proposal.project && (
@@ -68,7 +68,7 @@ export function ProposalCard({
           href={proposal.context_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-1.5 inline-block text-[12px] text-sage-deep hover:underline"
+          className="mt-1.5 inline-block text-[12px] text-accent-deep hover:underline"
         >
           View context →
         </a>
@@ -78,13 +78,13 @@ export function ProposalCard({
           label="Yes"
           onClick={() => decide("approved")}
           loading={loading === "approved"}
-          className="border border-sage bg-sage-soft text-sage-deep hover:bg-sage/10"
+          className="border border-good bg-good-soft text-sage-deep hover:bg-good/10"
         />
         <ActionBtn
           label="No"
           onClick={() => decide("rejected")}
           loading={loading === "rejected"}
-          className="border border-rose bg-rose-soft text-rose-deep hover:bg-rose/10"
+          className="border border-bad bg-bad-soft text-rose-deep hover:bg-bad/10"
         />
         <ActionBtn
           label="Revise"

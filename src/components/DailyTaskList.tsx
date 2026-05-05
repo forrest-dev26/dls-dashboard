@@ -58,7 +58,7 @@ export function DailyTaskList({ project }: { project: string }) {
       {loading ? (
         <div className="space-y-2.5">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-16 animate-pulse rounded-xl bg-bg-soft" />
+            <div key={i} className="h-16 animate-pulse rounded-lg bg-bg-soft" />
           ))}
         </div>
       ) : tasks.length === 0 ? (
@@ -66,7 +66,7 @@ export function DailyTaskList({ project }: { project: string }) {
       ) : (
         <div className="space-y-2.5">
           {tasks.map((t) => (
-            <div key={t.id} className="rounded-xl border border-line bg-white p-4 transition-shadow hover:shadow-sm">
+            <div key={t.id} className="rounded-lg border border-line bg-white p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
               <div className="flex items-start justify-between gap-3">
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
@@ -87,7 +87,7 @@ export function DailyTaskList({ project }: { project: string }) {
                 </div>
                 {t.status === "pending" && (
                   <div className="flex gap-1.5 shrink-0">
-                    <button onClick={() => updateStatus(t.id, "approved")} className="rounded-lg bg-sage px-2.5 py-1 text-[11px] font-medium text-white hover:bg-sage-deep">Approve</button>
+                    <button onClick={() => updateStatus(t.id, "approved")} className="rounded-lg bg-accent px-2.5 py-1 text-[11px] font-medium text-white hover:bg-accent-deep">Approve</button>
                     <button onClick={() => updateStatus(t.id, "started")} className="rounded-lg bg-gold px-2.5 py-1 text-[11px] font-medium text-ink hover:bg-gold/90">Start</button>
                     <button onClick={() => updateStatus(t.id, "deferred")} className="rounded-lg border border-line bg-bg-soft px-2.5 py-1 text-[11px] text-ink-3 hover:bg-line">Defer</button>
                     <button onClick={() => updateStatus(t.id, "killed")} className="rounded-lg border border-rose/30 px-2.5 py-1 text-[11px] text-rose hover:bg-rose-soft">Kill</button>
@@ -97,7 +97,7 @@ export function DailyTaskList({ project }: { project: string }) {
                   <button onClick={() => updateStatus(t.id, "started")} className="rounded-lg bg-gold px-2.5 py-1 text-[11px] font-medium text-ink hover:bg-gold/90 shrink-0">Start</button>
                 )}
                 {t.status === "started" && (
-                  <button onClick={() => updateStatus(t.id, "completed")} className="rounded-lg bg-sage px-2.5 py-1 text-[11px] font-medium text-white hover:bg-sage-deep shrink-0">Done</button>
+                  <button onClick={() => updateStatus(t.id, "completed")} className="rounded-lg bg-accent px-2.5 py-1 text-[11px] font-medium text-white hover:bg-accent-deep shrink-0">Done</button>
                 )}
               </div>
             </div>

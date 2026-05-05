@@ -62,7 +62,7 @@ export function SubagentBoard({ project }: { project?: string }) {
       {loading ? (
         <div className="space-y-2.5">
           {[1, 2].map((i) => (
-            <div key={i} className="h-16 animate-pulse rounded-xl bg-bg-soft" />
+            <div key={i} className="h-16 animate-pulse rounded-lg bg-bg-soft" />
           ))}
         </div>
       ) : tasks.length === 0 ? (
@@ -104,7 +104,7 @@ export function SubagentBoard({ project }: { project?: string }) {
 
 function TaskRow({ task, onAction }: { task: SubagentTask; onAction: (id: string, status: string) => void }) {
   return (
-    <div className="rounded-xl border border-line bg-white p-4 transition-shadow hover:shadow-sm">
+    <div className="rounded-lg border border-line bg-white p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1">
           <div className="flex items-center gap-2">
@@ -124,7 +124,7 @@ function TaskRow({ task, onAction }: { task: SubagentTask; onAction: (id: string
             <a href={task.log_url} target="_blank" rel="noopener noreferrer" className="rounded-lg border border-line bg-bg-soft px-2.5 py-1 text-[11px] text-ink-3 hover:bg-line">Log</a>
           )}
           {task.status === "suggested" && (
-            <button onClick={() => onAction(task.id, "queued")} className="rounded-lg bg-sage px-2.5 py-1 text-[11px] font-medium text-white hover:bg-sage-deep">Start</button>
+            <button onClick={() => onAction(task.id, "queued")} className="rounded-lg bg-accent px-2.5 py-1 text-[11px] font-medium text-white hover:bg-accent-deep">Start</button>
           )}
           {(task.status === "running" || task.status === "queued") && (
             <button onClick={() => onAction(task.id, "killed")} className="rounded-lg border border-rose/30 px-2.5 py-1 text-[11px] text-rose hover:bg-rose-soft">Kill</button>

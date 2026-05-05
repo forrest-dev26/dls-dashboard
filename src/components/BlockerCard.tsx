@@ -33,7 +33,7 @@ export function BlockerCard({
 
   if (resolved) {
     return (
-      <div className="rounded-xl border border-good/30 bg-good-soft p-3 opacity-60">
+      <div className="rounded-lg border border-good/30 bg-good-soft p-3 opacity-60">
         <p className="text-[13px] text-good">
           <strong>{blocker.title}</strong> — resolved
         </p>
@@ -42,7 +42,7 @@ export function BlockerCard({
   }
 
   return (
-    <div className="rounded-xl border border-bad/30 bg-bad-soft p-4">
+    <div className="rounded-lg border border-bad/30 bg-bad-soft p-4 shadow-sm">
       <div className="flex items-start justify-between gap-3">
         <div>
           <h4 className="m-0 text-[14px] font-medium text-bad">{blocker.title}</h4>

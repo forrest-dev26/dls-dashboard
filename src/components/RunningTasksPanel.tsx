@@ -37,7 +37,7 @@ export function RunningTasksPanel() {
       {loading ? (
         <div className="space-y-2.5">
           {[1, 2].map((i) => (
-            <div key={i} className="h-12 animate-pulse rounded-xl bg-bg-soft" />
+            <div key={i} className="h-12 animate-pulse rounded-lg bg-bg-soft" />
           ))}
         </div>
       ) : tasks.length === 0 ? (
@@ -47,7 +47,7 @@ export function RunningTasksPanel() {
           {tasks.map((t) => (
             <div
               key={t.id}
-              className="flex items-center justify-between rounded-xl border border-line bg-white px-5 py-3 transition-shadow hover:shadow-sm"
+              className="flex items-center justify-between rounded-lg border border-line bg-white px-5 py-3 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
             >
               <div className="flex items-center gap-3">
                 <span className="text-[13px] font-medium text-ink">{t.label}</span>
