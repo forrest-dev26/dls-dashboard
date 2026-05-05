@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { EmptyState } from "./EmptyState";
 
 interface RunningTask {
   id: string;
@@ -41,7 +42,7 @@ export function RunningTasksPanel() {
           ))}
         </div>
       ) : tasks.length === 0 ? (
-        <p className="text-[13px] text-ink-3">No background tasks running.</p>
+        <EmptyState message="No background tasks running." />
       ) : (
         <div className="space-y-2.5">
           {tasks.map((t) => (

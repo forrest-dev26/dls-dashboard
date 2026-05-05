@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { EmptyState } from "./EmptyState";
 
 interface SubagentTask {
   id: string;
@@ -66,7 +67,7 @@ export function SubagentBoard({ project }: { project?: string }) {
           ))}
         </div>
       ) : tasks.length === 0 ? (
-        <p className="text-[13px] text-ink-3">No subagent activity right now.</p>
+        <EmptyState message="No subagent activity right now." />
       ) : (
         <div className="space-y-5">
           {running.length > 0 && (

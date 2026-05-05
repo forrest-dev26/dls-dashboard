@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { EmptyState } from "./EmptyState";
 
 interface DailyTask {
   id: string;
@@ -62,7 +63,7 @@ export function DailyTaskList({ project }: { project: string }) {
           ))}
         </div>
       ) : tasks.length === 0 ? (
-        <p className="text-[13px] text-ink-3">No tasks for today. Sarah will post them during the morning sequence.</p>
+        <EmptyState message="No tasks for today. Sarah will post them during the morning sequence." />
       ) : (
         <div className="space-y-2.5">
           {tasks.map((t) => (

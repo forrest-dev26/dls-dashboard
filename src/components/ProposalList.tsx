@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { ProposalCard } from "./ProposalCard";
+import { EmptyState } from "./EmptyState";
 
 interface Proposal {
   id: string;
@@ -62,7 +63,7 @@ export function ProposalList({
           ))}
         </div>
       ) : proposals.length === 0 ? (
-        <p className="text-[13px] text-ink-3">{emptyText ?? "Nothing here yet."}</p>
+        <EmptyState message={emptyText ?? "Nothing here yet."} />
       ) : (
         <div className="space-y-3">
           {proposals.map((p) => (
