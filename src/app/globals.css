@@ -4,6 +4,72 @@
   --font-display: var(--font-lora), Georgia, serif;
   --font-ui: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: var(--font-ibm-plex-mono), 'Menlo', ui-monospace, monospace;
+
+  /* === Brand colors (Tailwind v4 reads these to generate utilities like bg-good, text-burgundy, etc.). */
+  /* Mirrors the legacy tailwind.config.ts palette which Tailwind v4 ignores by default. */
+
+  /* Canvas & surfaces */
+  --color-bg: #FAF7F2;
+  --color-bg-elev: #FFFFFF;
+  --color-bg-soft: #F3EEE6;
+  --color-bg-card: #FAF8F4;
+  --color-sidebar-bg: #1F2421;
+  --color-sidebar-hover: #2A302A;
+
+  /* Ink / text */
+  --color-ink: #1A1A1A;
+  --color-ink-2: #4A4A4A;
+  --color-ink-3: #8A8A8A;
+  --color-ink-4: #B7B0A6;
+
+  /* Borders */
+  --color-line: #EAE3D7;
+  --color-line-2: #D9D0BF;
+
+  /* Primary accent: muted teal */
+  --color-accent: #4A8B82;
+  --color-accent-deep: #356B63;
+  --color-accent-soft: #E3EEEC;
+
+  /* Gold */
+  --color-gold: #C9A96E;
+  --color-gold-soft: #F4ECDB;
+  --color-gold-deep: #7A5A1F;
+
+  /* Status: good (sage-green) */
+  --color-good: #5B9D6E;
+  --color-good-soft: #E2EFE5;
+
+  /* Status: warn */
+  --color-warn: #D6A150;
+  --color-warn-soft: #F6EBD6;
+
+  /* Status: bad / rose */
+  --color-bad: #C57064;
+  --color-bad-soft: #F4DEDA;
+
+  /* Info blue */
+  --color-blue: #6F9FB0;
+  --color-blue-soft: #E0EDF2;
+
+  /* Legacy aliases (kept for existing component compat) */
+  --color-sage: #5B9D6E;
+  --color-sage-soft: #E2EFE5;
+  --color-sage-deep: #2D6B40;
+  --color-rose: #C57064;
+  --color-rose-soft: #F4DEDA;
+  --color-rose-deep: #8B3A30;
+
+  /* Legacy DLS colors */
+  --color-burgundy: #6E1F23;
+  --color-burgundy-deep: #4A1418;
+  --color-burgundy-soft: #F2E0DE;
+
+  /* DLS series */
+  --color-series-salem: #4A2E2A;
+  --color-series-titanic: #1F2A40;
+  --color-series-asylum: #3D2F44;
+  --color-series-raven: #1A1410;
 }
 
 :root {
