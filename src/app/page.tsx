@@ -1,10 +1,12 @@
 // Personal OS Home — Christopher's command center
-// 6 modules: Today's Focus, Recommendations, Waiting on You,
+// 6 modules: Pulse strip, Today's Focus, Recommendations, Waiting on You,
 // Body-Man Briefing, What's Running, Calendar (placeholder)
 
 import { ProposalList } from "@/components/ProposalList";
 import { RunningTasksPanel } from "@/components/RunningTasksPanel";
 import { OsBriefingCard } from "@/components/OsBriefingCard";
+import { PulseStrip } from "@/components/PulseStrip";
+import { SubagentBoard } from "@/components/SubagentBoard";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -27,6 +29,11 @@ export default function HomePage() {
         </h1>
         <p className="mt-1 text-[13px] text-ink-3">{dateStr}</p>
       </div>
+
+      {/* Pulse strip */}
+      <section className="mb-8">
+        <PulseStrip />
+      </section>
 
       {/* Today's Focus */}
       <section className="mb-8">
@@ -62,18 +69,23 @@ export default function HomePage() {
         <RunningTasksPanel />
       </section>
 
+      {/* Subagent Board (aggregate) */}
+      <section className="mb-8">
+        <SubagentBoard />
+      </section>
+
       {/* Calendar placeholder */}
       <section className="mb-8">
         <h3 className="mb-3 font-display text-base font-medium tracking-tight">Calendar</h3>
         <div className="rounded-md border border-dashed border-line bg-bg-soft p-6 text-center">
           <p className="text-[13px] text-ink-3">
-            Calendar integration coming in Phase 2.
+            Calendar integration coming in Phase 4.
           </p>
         </div>
       </section>
 
       <footer className="mt-10 text-center text-[11px] text-ink-3">
-        Personal OS Dashboard · Phase 1 ·{" "}
+        Personal OS Dashboard · Phase 1 v1 ·{" "}
         {new Date().toLocaleDateString("en-US", {
           year: "numeric",
           month: "long",

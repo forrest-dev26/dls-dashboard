@@ -174,6 +174,73 @@ export interface OrderWindow {
   newRevenue: number;
 }
 
+export type SeriesKey = "Salem" | "Titanic" | "Asylum" | "Other";
+
+export interface SeriesNewOrdersResult {
+  date: string; // YYYY-MM-DD
+  series: Record<SeriesKey, { count: number; orders: ShopifyOrder[] }>;
+  total: number;
+}
+
+function getSeriesKey(order: ShopifyOrder): SeriesKey {
+  const title = order.line_items?.[0]?.title || "";
+  if (title.includes("Salem")) return "Salem";
+  if (title.includes("Titanic")) return "Titanic";
+  if (title.includes("Asylum")) return "Asylum";
+  return "Other";
+}
+
+export async function fetchYesterdaysSeriesNewOrders(): Promise<SeriesNewOrdersResult> {
+  const empty: SeriesNewOrdersResult = {
+    date: "",
+    series: {
+      Salem: { count: 0, orders: [] },
+      Titanic: { count: 0, orders: [] },
+      Asylum: { count: 0, orders: [] },
+      Other: { count: 0, orders: [] },
+    },
+    total: 0,
+  };
+
+  if (!process.env.SHOPIFY_STORE || !process.env.SHOPIFY_ACCESS_TOKEN) {
+    return empty;
+  }
+
+  // Yesterday in America/New_York
+  const nowNy = new Date(
+    new Date().toLocaleString("en-US", { timeZone: "America/New_York" })
+  );
+  const yesterday = new Date(nowNy);
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yyyy = yesterday.getFullYear();
+  const mm = String(yesterday.getMonth() + 1).padStart(2, "0");
+  const dd = String(yesterday.getDate()).padStart(2, "0");
+  const dateIso = `${yyyy}-${mm}-${dd}`;
+
+  // Determine current ET offset (-04:00 EDT or -05:00 EST)
+  const jan = new Date(yesterday.getFullYear(), 0, 1);
+  const jul = new Date(yesterday.getFullYear(), 6, 1);
+  const stdOffset = Math.max(
+    jan.getTimezoneOffset(),
+    jul.getTimezoneOffset()
+  );
+  const isDst = nowNy.getTimezoneOffset() < stdOffset;
+  const tz = isDst ? "-04:00" : "-05:00";
+
+  const { newOrders } = await fetchOrders(dateIso, tz);
+
+  const result: SeriesNewOrdersResult = { date: dateIso, series: empty.series, total: 0 };
+
+  for (const order of newOrders) {
+    const key = getSeriesKey(order);
+    result.series[key].count++;
+    result.series[key].orders.push(order);
+  }
+
+  result.total = newOrders.length;
+  return result;
+}
+
 export async function fetchOrderWindow(days: number): Promise<OrderWindow> {
   const results: OrderWindow = {
     totalOrders: 0,

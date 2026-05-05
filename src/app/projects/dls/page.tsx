@@ -2,8 +2,9 @@
 // Fetches Meta/Shopify/Klaviyo data + shows DLS-specific proposals & blockers.
 
 import { fetchDashboardMetrics } from "@/lib/metrics";
-import { fetchRecentActivity } from "@/lib/shopify";
+import { fetchRecentActivity, fetchYesterdaysSeriesNewOrders } from "@/lib/shopify";
 import { fetchFlows } from "@/lib/klaviyo";
+import { SeriesNewOrdersCard } from "@/components/series-new-orders-card";
 import { Sidebar } from "@/components/sidebar";
 import { Topbar } from "@/components/topbar";
 import { KpiTile } from "@/components/kpi-tile";
@@ -13,20 +14,27 @@ import { ActivityFeed } from "@/components/activity-feed";
 import { FlowStatus } from "@/components/flow-status";
 import { PostsQueue } from "@/components/posts-queue";
 import { ProposalList } from "@/components/ProposalList";
+import { DailyTaskList } from "@/components/DailyTaskList";
+import { ContentKanban } from "@/components/ContentKanban";
+import { SubagentBoard } from "@/components/SubagentBoard";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export default async function DlsPage() {
-  const [metricsResult, activityResult, flowsResult] = await Promise.allSettled([
+  const [metricsResult, activityResult, flowsResult, seriesOrdersResult] = await Promise.allSettled([
     fetchDashboardMetrics(),
     fetchRecentActivity(8),
     fetchFlows(),
+    fetchYesterdaysSeriesNewOrders(),
   ]);
 
   const metrics = metricsResult.status === "fulfilled" ? metricsResult.value : null;
   const activity = activityResult.status === "fulfilled" ? activityResult.value : [];
   const flows = flowsResult.status === "fulfilled" ? flowsResult.value : [];
+  const seriesOrders = seriesOrdersResult.status === "fulfilled"
+    ? seriesOrdersResult.value
+    : { date: "", series: { Salem: { count: 0, orders: [] }, Titanic: { count: 0, orders: [] }, Asylum: { count: 0, orders: [] }, Other: { count: 0, orders: [] } }, total: 0 };
 
   const todayCac = metrics?.cac7d.blendedCacWindow ?? null;
   const yesterdayCac = metrics?.yesterdayCac.blendedCac ?? null;
@@ -122,6 +130,7 @@ export default async function DlsPage() {
         <section className="mt-5 grid grid-cols-[1.4fr_1fr] gap-4 max-[1100px]:grid-cols-1">
           <BriefingCard insights={insights} />
           <div className="space-y-4">
+            <SeriesNewOrdersCard data={seriesOrders} />
             <ScheduleCard />
             <AlertsCard flows={flows} />
           </div>
@@ -136,6 +145,21 @@ export default async function DlsPage() {
         <section className="mt-6 grid grid-cols-[1.4fr_1fr] gap-4 max-[1100px]:grid-cols-1">
           <ActivityFeed items={activity} />
           <FlowStatus flows={flows} />
+        </section>
+
+        {/* DLS Daily Tasks */}
+        <section className="mt-8">
+          <DailyTaskList project="dls" />
+        </section>
+
+        {/* Content Pipeline */}
+        <section className="mt-8">
+          <ContentKanban project="dls" />
+        </section>
+
+        {/* Subagent Board */}
+        <section className="mt-8">
+          <SubagentBoard project="dls" />
         </section>
 
         {/* DLS-specific proposals */}
