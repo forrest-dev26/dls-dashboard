@@ -78,13 +78,13 @@ export function ProposalCard({
           label="Yes"
           onClick={() => decide("approved")}
           loading={loading === "approved"}
-          className="bg-good text-white hover:bg-good/90"
+          className="border border-good bg-bg-soft text-good hover:bg-good/10"
         />
         <ActionBtn
           label="No"
           onClick={() => decide("rejected")}
           loading={loading === "rejected"}
-          className="bg-bad text-white hover:bg-bad/90"
+          className="border border-bad bg-bg-soft text-bad hover:bg-bad/10"
         />
         <ActionBtn
           label="Revise"
