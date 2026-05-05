@@ -3,7 +3,7 @@ import type { KlaviyoFlow } from "@/lib/klaviyo";
 export function FlowStatus({ flows }: { flows: KlaviyoFlow[] }) {
   if (flows.length === 0) {
     return (
-      <div className="rounded-md border border-line bg-bg-elev p-5">
+      <div className="rounded-xl border border-line bg-white p-5">
         <h3 className="m-0 mb-3 font-display text-base font-medium">Klaviyo flow status</h3>
         <div className="text-[13px] text-ink-3">No flows returned. Check API connection.</div>
       </div>
@@ -11,7 +11,7 @@ export function FlowStatus({ flows }: { flows: KlaviyoFlow[] }) {
   }
 
   return (
-    <div className="rounded-md border border-line bg-bg-elev p-5">
+    <div className="rounded-xl border border-line bg-white p-5">
       <div className="mb-3 flex items-baseline justify-between">
         <h3 className="m-0 font-display text-base font-medium">Klaviyo flow status</h3>
         <span className="text-[12px] text-ink-3">{flows.length} flows</span>

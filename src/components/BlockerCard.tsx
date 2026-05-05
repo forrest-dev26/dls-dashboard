@@ -33,7 +33,7 @@ export function BlockerCard({
 
   if (resolved) {
     return (
-      <div className="rounded-md border border-good/30 bg-good-soft p-3 opacity-60">
+      <div className="rounded-xl border border-good/30 bg-good-soft p-3 opacity-60">
         <p className="text-[13px] text-good">
           <strong>{blocker.title}</strong> — resolved
         </p>
@@ -42,7 +42,7 @@ export function BlockerCard({
   }
 
   return (
-    <div className="rounded-md border border-bad/30 bg-bad-soft p-4">
+    <div className="rounded-xl border border-bad/30 bg-bad-soft p-4">
       <div className="flex items-start justify-between gap-3">
         <div>
           <h4 className="m-0 text-[14px] font-medium text-bad">{blocker.title}</h4>
@@ -55,7 +55,7 @@ export function BlockerCard({
         </div>
         <button
           onClick={resolve}
-          className="shrink-0 rounded-sm border border-good/40 bg-good-soft px-3 py-1.5 text-[12px] font-medium text-good hover:bg-good/20"
+          className="shrink-0 rounded-lg border border-good/40 bg-good-soft px-3 py-1.5 text-[12px] font-medium text-good hover:bg-good/20"
         >
           I&apos;ve handled this
         </button>

@@ -20,7 +20,7 @@ export default function ActionButton({ label, variant = "primary" }: ActionButto
     fontSize: 12,
     fontWeight: 500,
     padding: "7px 14px",
-    borderRadius: 4,
+    borderRadius: 8,
     border: "1px solid transparent",
     cursor: "pointer",
     display: "inline-flex",

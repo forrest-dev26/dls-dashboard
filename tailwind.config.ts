@@ -9,30 +9,58 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // DLS brand palette
-        bg: "#F6F1E7",
+        // Canvas & surfaces
+        bg: "#F6F0E7",
         "bg-elev": "#FFFFFF",
-        "bg-soft": "#EDE5D3",
-        "bg-card": "#FBF7EE",
-        ink: "#1A1410",
+        "bg-soft": "#EDE5D8",
+        "bg-card": "#FAF8F4",
+        "sidebar-bg": "#20251F",
+        "sidebar-hover": "#2A302A",
+        "sidebar-active": "#343C34",
+
+        // Ink / text
+        ink: "#23211E",
         "ink-2": "#3F362E",
-        "ink-3": "#847467",
-        "ink-4": "#B5A795",
-        line: "#DFD5C2",
-        "line-2": "#C7BAA0",
+        "ink-3": "#7A736A",
+        "ink-4": "#B7B0A6",
+
+        // Borders
+        line: "#E4DDD3",
+        "line-2": "#D1C9BC",
+
+        // Sage accent (positive / active)
+        sage: "#6E9E7B",
+        "sage-soft": "#E2ECDF",
+        "sage-deep": "#4E7A59",
+
+        // Gold accent (warning / trial)
+        gold: "#D2B06D",
+        "gold-soft": "#F4ECDB",
+        "gold-deep": "#A68B4B",
+
+        // Rose accent (risk / churn)
+        rose: "#C97A6A",
+        "rose-soft": "#F2DBD6",
+        "rose-deep": "#A85549",
+
+        // Muted blue (info / schedule)
+        blue: "#6F9FB0",
+        "blue-soft": "#E0EDF2",
+
+        // Legacy DLS colors
         burgundy: "#6E1F23",
         "burgundy-deep": "#4A1418",
         "burgundy-soft": "#F2E0DE",
-        gold: "#C9A96E",
-        "gold-soft": "#F4ECDB",
-        "gold-deep": "#927a47",
+
+        // Semantic
         good: "#5B7D55",
         "good-soft": "#E2ECDF",
         warn: "#C29050",
         "warn-soft": "#F4E5CC",
         bad: "#A85549",
         "bad-soft": "#F2DBD6",
-        // Series colors
+
+        // DLS series
         "series-salem": "#4A2E2A",
         "series-titanic": "#1F2A40",
         "series-asylum": "#3D2F44",
@@ -47,12 +75,12 @@ const config: Config = {
         sm: "4px",
         md: "8px",
         lg: "12px",
-        xl: "18px",
+        xl: "16px",
       },
       boxShadow: {
-        sm: "0 1px 2px rgba(26,20,16,0.05), 0 1px 1px rgba(26,20,16,0.03)",
-        md: "0 4px 14px rgba(26,20,16,0.07), 0 2px 4px rgba(26,20,16,0.04)",
-        lg: "0 14px 38px rgba(26,20,16,0.10), 0 4px 8px rgba(26,20,16,0.04)",
+        sm: "0 1px 2px rgba(35,33,30,0.04), 0 1px 1px rgba(35,33,30,0.02)",
+        md: "0 4px 12px rgba(35,33,30,0.06), 0 2px 4px rgba(35,33,30,0.03)",
+        lg: "0 12px 32px rgba(35,33,30,0.08), 0 4px 8px rgba(35,33,30,0.03)",
       },
     },
   },

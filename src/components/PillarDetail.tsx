@@ -18,9 +18,9 @@ const statusLabel: Record<string, string> = {
 };
 
 const statusColor: Record<string, string> = {
-  green: "text-good bg-good-soft",
-  yellow: "text-warn bg-warn-soft",
-  red: "text-bad bg-bad-soft",
+  green: "text-sage-deep bg-sage-soft",
+  yellow: "text-gold-deep bg-gold-soft",
+  red: "text-rose bg-rose-soft",
 };
 
 const pillarLabels: Record<string, string> = {
@@ -47,7 +47,7 @@ export function PillarDetail({ pillarId }: { pillarId: string }) {
   }, [pillarId]);
 
   if (loading) {
-    return <div className="h-48 animate-pulse rounded-lg bg-bg-soft" />;
+    return <div className="h-48 animate-pulse rounded-xl bg-bg-soft" />;
   }
 
   if (!pillar) {
@@ -64,14 +64,14 @@ export function PillarDetail({ pillarId }: { pillarId: string }) {
       </div>
 
       {pillar.summary && (
-        <div className="rounded-md border border-line bg-bg-elev p-4">
+        <div className="rounded-xl border border-line bg-white p-5">
           <h4 className="mb-1.5 text-[12px] font-medium uppercase tracking-wide text-ink-3">Current State</h4>
           <p className="text-[14px] leading-relaxed text-ink-2">{pillar.summary}</p>
         </div>
       )}
 
       {pillar.notes && (
-        <div className="rounded-md border border-line bg-bg-elev p-4">
+        <div className="rounded-xl border border-line bg-white p-5">
           <h4 className="mb-1.5 text-[12px] font-medium uppercase tracking-wide text-ink-3">Sarah&apos;s Notes</h4>
           <p className="whitespace-pre-wrap text-[13px] leading-relaxed text-ink-2">{pillar.notes}</p>
         </div>

@@ -23,51 +23,65 @@ export function BodyManBriefing() {
   }, []);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       {/* Pillar status */}
       <div>
-        <h3 className="mb-3 font-display text-base font-medium tracking-tight">Six Pillars</h3>
+        <h3 className="mb-4 text-[16px] font-semibold tracking-tight text-ink">Six Pillars</h3>
         <PillarStrip />
       </div>
 
       {/* Briefing */}
-      <div className="rounded-md border border-line bg-ink p-5">
-        <h3 className="m-0 mb-2 font-display text-base font-medium text-gold">
-          Body-Man Briefing
-        </h3>
+      <div className="rounded-xl bg-sidebar-bg p-6">
+        <div className="flex items-center gap-2 mb-3">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-gold">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 16v-4" />
+            <path d="M12 8h.01" />
+          </svg>
+          <h3 className="m-0 text-[15px] font-semibold text-gold">
+            Body-Man Briefing
+          </h3>
+        </div>
         {loading ? (
-          <p className="text-[13px] text-bg/60">Loading briefing...</p>
+          <p className="text-[13px] text-white/50">Loading briefing...</p>
         ) : briefing ? (
           <>
-            <div className="mb-1 flex items-center justify-between">
-              <span className="text-[14px] font-medium text-bg/90">{briefing.title}</span>
-              <span className="rounded-full bg-gold/20 px-2 py-0.5 text-[10px] font-medium text-gold">
+            <div className="mb-2 flex items-center justify-between">
+              <span className="text-[14px] font-medium text-white/90">{briefing.title}</span>
+              <span className="rounded-full bg-gold/15 px-2.5 py-0.5 text-[10px] font-medium text-gold">
                 {briefing.type}
               </span>
             </div>
-            <div className="whitespace-pre-wrap text-[13px] leading-relaxed text-bg/80">
+            <div className="whitespace-pre-wrap text-[13px] leading-relaxed text-white/70">
               {briefing.body}
             </div>
-            <div className="mt-3 text-[11px] text-bg/40">
+            <div className="mt-4 text-[11px] text-white/30">
               {new Date(briefing.created_at).toLocaleString()}
             </div>
           </>
         ) : (
-          <p className="text-[13px] text-bg/60">
+          <p className="text-[13px] text-white/50">
             No body-man briefing for today yet — Sarah will populate during the morning sequence.
           </p>
         )}
       </div>
 
       {/* Schedule placeholder */}
-      <div className="rounded-md border border-line bg-bg-elev p-4">
-        <h4 className="mb-2 text-[12px] font-medium uppercase tracking-wide text-ink-3">Today&apos;s Schedule</h4>
-        <div className="space-y-1.5 text-[13px]">
-          <div>
-            <span>Tuesday 11:15 AM — Injection appointment</span>
+      <div className="rounded-xl border border-line bg-white p-5">
+        <div className="flex items-center gap-2 mb-3">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-blue">
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
+          <h4 className="text-[12px] font-semibold uppercase tracking-wide text-ink-3">Today&apos;s Schedule</h4>
+        </div>
+        <div className="space-y-2 text-[13px]">
+          <div className="flex items-center gap-3">
+            <span className="font-mono text-[12px] text-ink-4">11:15 AM</span>
+            <span>Injection appointment</span>
           </div>
         </div>
-        <p className="mt-2 text-[11px] text-ink-4">Calendar integration — Phase 4</p>
+        <p className="mt-3 text-[11px] text-ink-4">Calendar integration — Phase 4</p>
       </div>
     </div>
   );

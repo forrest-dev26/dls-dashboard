@@ -54,9 +54,13 @@ export function ProposalList({
 
   return (
     <div>
-      <h3 className="mb-3 font-display text-base font-medium tracking-tight">{title}</h3>
+      <h3 className="mb-4 text-[16px] font-semibold tracking-tight text-ink">{title}</h3>
       {loading ? (
-        <p className="text-[13px] text-ink-3">Loading...</p>
+        <div className="space-y-3">
+          {[1, 2].map((i) => (
+            <div key={i} className="h-20 animate-pulse rounded-xl bg-bg-soft" />
+          ))}
+        </div>
       ) : proposals.length === 0 ? (
         <p className="text-[13px] text-ink-3">{emptyText ?? "Nothing here yet."}</p>
       ) : (

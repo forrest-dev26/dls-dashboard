@@ -37,7 +37,7 @@ export function ContentCard({
   }
 
   return (
-    <div className="rounded border border-line bg-bg-elev p-2.5">
+    <div className="rounded-xl border border-line bg-white p-3">
       {item.image_url && (
         <div className="mb-2 aspect-video overflow-hidden rounded bg-bg-soft">
           {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -12,7 +12,7 @@ export default function WellnessPlatformPage() {
         {/* Pilot health placeholder */}
         <section>
           <h3 className="mb-3 font-display text-base font-medium tracking-tight">Pilot Health</h3>
-          <div className="rounded-md border border-dashed border-line bg-bg-soft p-6 text-center">
+          <div className="rounded-xl border border-dashed border-line bg-bg-card p-8 text-center">
             <p className="text-[13px] text-ink-3">
               Chill N Out pilot metrics will populate here when Stripe + studio data flows in.
             </p>

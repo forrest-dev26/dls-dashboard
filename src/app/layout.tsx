@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Lora, IBM_Plex_Mono } from "next/font/google";
-import { TabNav } from "@/components/TabNav";
+import { SidebarNav } from "@/components/SidebarNav";
 import "./globals.css";
 
 const inter = Inter({
@@ -38,8 +38,10 @@ export default function RootLayout({
       className={`${inter.variable} ${lora.variable} ${ibmPlexMono.variable}`}
     >
       <body>
-        <TabNav />
-        {children}
+        <SidebarNav />
+        <div className="ml-[240px] min-h-screen max-[900px]:ml-0">
+          {children}
+        </div>
       </body>
     </html>
   );

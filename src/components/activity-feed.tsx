@@ -2,7 +2,7 @@ import type { RecentActivityItem } from "@/lib/shopify";
 
 export function ActivityFeed({ items }: { items: RecentActivityItem[] }) {
   return (
-    <div className="rounded-md border border-line bg-bg-elev p-5">
+    <div className="rounded-xl border border-line bg-white p-5">
       <div className="mb-3 flex items-baseline justify-between">
         <h3 className="m-0 font-display text-base font-medium">Recent activity</h3>
         <span className="text-[12px] text-ink-3">last 24h · {items.length} events</span>

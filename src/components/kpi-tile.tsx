@@ -16,7 +16,7 @@ export function KpiTile({
   }[deltaTone];
 
   return (
-    <div className="flex flex-col gap-1.5 rounded-md border border-line bg-bg-card px-4 py-3.5">
+    <div className="flex flex-col gap-1.5 rounded-xl border border-line bg-white px-4 py-3.5">
       <div className="text-[11px] uppercase tracking-wider text-ink-3">{label}</div>
       <div className="font-display text-2xl font-medium leading-none tracking-tight text-ink">
         {value}

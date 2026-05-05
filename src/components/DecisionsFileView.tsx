@@ -19,12 +19,12 @@ export function DecisionsFileView() {
   }, []);
 
   if (loading) {
-    return <div className="h-32 animate-pulse rounded-md bg-bg-soft" />;
+    return <div className="h-32 animate-pulse rounded-xl bg-bg-soft" />;
   }
 
   if (error || !content) {
     return (
-      <div className="rounded-md border border-dashed border-line bg-bg-soft p-4 text-center">
+      <div className="rounded-xl border border-dashed border-line bg-bg-card p-6 text-center">
         <p className="text-[13px] text-ink-3">
           No DECISIONS.md file found in workspace. Decisions will appear here when the file is created.
         </p>
@@ -33,7 +33,7 @@ export function DecisionsFileView() {
   }
 
   return (
-    <div className="rounded-md border border-line bg-bg-elev p-4">
+    <div className="rounded-xl border border-line bg-white p-5">
       <pre className="whitespace-pre-wrap font-mono text-[12px] leading-relaxed text-ink-2">
         {content}
       </pre>

@@ -46,7 +46,7 @@ export function BriefingCard({ insights }: { insights: Insight[] }) {
   });
 
   return (
-    <div className="relative rounded-md border border-ink bg-ink p-5 px-6 text-bg">
+    <div className="relative rounded-xl border border-sidebar-bg bg-sidebar-bg p-5 px-6 text-bg">
       <div className="flex items-baseline justify-between">
         <h3 className="m-0 font-display text-lg font-medium text-gold">Today&apos;s briefing</h3>
         <span className="text-[11px] italic text-ink-4">{stamp}</span>
@@ -71,7 +71,7 @@ export function BriefingCard({ insights }: { insights: Insight[] }) {
                 <button
                   key={j}
                   onClick={() => handleAction(a.label)}
-                  className={`inline-flex items-center gap-1.5 rounded-sm border px-3.5 py-1.5 text-[12px] font-medium transition-colors ${
+                  className={`inline-flex items-center gap-1.5 rounded-lg border px-3.5 py-1.5 text-[12px] font-medium transition-colors ${
                     a.primary
                       ? "border-gold bg-gold text-ink hover:bg-gold/80"
                       : "border-white/20 bg-transparent text-ink-4 hover:border-white/40 hover:text-[#f8f1e2]"

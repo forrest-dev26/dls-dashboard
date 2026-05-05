@@ -61,7 +61,7 @@ export function PostsQueue() {
   return (
     <div id="posts-queue" className="grid grid-cols-3 gap-3.5 max-[1100px]:grid-cols-1">
       {POSTS.map((post, i) => (
-        <div key={i} className="rounded-md border border-line bg-bg-card p-4 px-4 pt-4">
+        <div key={i} className="rounded-xl border border-line bg-white p-4 px-4 pt-4">
           <div className="mb-2.5 flex items-center gap-2 text-[11px] uppercase tracking-wider text-ink-3">
             <span className={`rounded-full px-2.5 py-0.5 text-[10px] tracking-wider text-bg ${post.pageClass}`}>
               {post.page}
@@ -69,7 +69,7 @@ export function PostsQueue() {
             <span>FB page</span>
           </div>
           <div
-            className="mb-3 h-[110px] rounded-sm border border-line bg-bg-soft bg-cover bg-center"
+            className="mb-3 h-[110px] rounded-lg border border-line bg-bg-soft bg-cover bg-center"
             style={{ backgroundImage: `url('${post.coverUrl}')` }}
           />
           <p className="m-0 mb-3 whitespace-pre-wrap font-display text-[14px] leading-relaxed text-ink">
@@ -77,26 +77,26 @@ export function PostsQueue() {
           </p>
           <div className="flex gap-2">
             <button
-              className="rounded-sm border border-gold bg-gold px-3.5 py-1.5 text-[12px] font-medium text-ink hover:bg-gold/80"
+              className="rounded-lg border border-gold bg-gold px-3.5 py-1.5 text-[12px] font-medium text-ink hover:bg-gold/80"
               onClick={() => handleAction(i, "post")}
             >
               Post now
             </button>
             <button
-              className="rounded-sm border border-line bg-bg-soft px-3.5 py-1.5 text-[12px] font-medium hover:bg-line"
+              className="rounded-lg border border-line bg-bg-soft px-3.5 py-1.5 text-[12px] font-medium hover:bg-line"
               onClick={() => handleAction(i, "recreate")}
             >
               Recreate
             </button>
             <button
-              className="rounded-sm border border-line bg-bg-soft px-3.5 py-1.5 text-[12px] font-medium hover:bg-line"
+              className="rounded-lg border border-line bg-bg-soft px-3.5 py-1.5 text-[12px] font-medium hover:bg-line"
               onClick={() => handleAction(i, "decline")}
             >
               Decline
             </button>
           </div>
           {statusByIdx[i] && (
-            <div className="mt-2 rounded-sm bg-ink/5 px-2 py-1 text-[11px] italic text-ink-3">
+            <div className="mt-2 rounded-lg bg-ink/5 px-2 py-1 text-[11px] italic text-ink-3">
               {statusByIdx[i]}
             </div>
           )}

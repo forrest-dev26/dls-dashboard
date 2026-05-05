@@ -17,9 +17,9 @@ interface SubagentTask {
 }
 
 const statusColors: Record<string, string> = {
-  running: "bg-good-soft text-good",
-  queued: "bg-warn-soft text-warn",
-  suggested: "bg-gold-soft text-gold-deep",
+  running: "bg-sage-soft text-sage-deep",
+  queued: "bg-gold-soft text-gold-deep",
+  suggested: "bg-blue-soft text-blue",
 };
 
 export function SubagentBoard({ project }: { project?: string }) {
@@ -56,35 +56,44 @@ export function SubagentBoard({ project }: { project?: string }) {
 
   return (
     <div>
-      <h3 className="mb-3 font-display text-base font-medium tracking-tight">
+      <h3 className="mb-4 text-[16px] font-semibold tracking-tight text-ink">
         Subagent Board
       </h3>
       {loading ? (
-        <div className="space-y-2">
+        <div className="space-y-2.5">
           {[1, 2].map((i) => (
-            <div key={i} className="h-14 animate-pulse rounded-md bg-bg-soft" />
+            <div key={i} className="h-16 animate-pulse rounded-xl bg-bg-soft" />
           ))}
         </div>
       ) : tasks.length === 0 ? (
         <p className="text-[13px] text-ink-3">No subagent activity right now.</p>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-5">
           {running.length > 0 && (
             <div>
-              <h4 className="mb-2 text-[12px] font-medium uppercase tracking-wide text-good">Running</h4>
-              <div className="space-y-2">{running.map((t) => <TaskRow key={t.id} task={t} onAction={updateStatus} />)}</div>
+              <h4 className="mb-2.5 flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-wide text-sage">
+                <span className="h-1.5 w-1.5 rounded-full bg-sage" />
+                Running
+              </h4>
+              <div className="space-y-2.5">{running.map((t) => <TaskRow key={t.id} task={t} onAction={updateStatus} />)}</div>
             </div>
           )}
           {queued.length > 0 && (
             <div>
-              <h4 className="mb-2 text-[12px] font-medium uppercase tracking-wide text-warn">Queued</h4>
-              <div className="space-y-2">{queued.map((t) => <TaskRow key={t.id} task={t} onAction={updateStatus} />)}</div>
+              <h4 className="mb-2.5 flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-wide text-gold-deep">
+                <span className="h-1.5 w-1.5 rounded-full bg-gold" />
+                Queued
+              </h4>
+              <div className="space-y-2.5">{queued.map((t) => <TaskRow key={t.id} task={t} onAction={updateStatus} />)}</div>
             </div>
           )}
           {suggested.length > 0 && (
             <div>
-              <h4 className="mb-2 text-[12px] font-medium uppercase tracking-wide text-gold-deep">Suggested</h4>
-              <div className="space-y-2">{suggested.map((t) => <TaskRow key={t.id} task={t} onAction={updateStatus} />)}</div>
+              <h4 className="mb-2.5 flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-wide text-blue">
+                <span className="h-1.5 w-1.5 rounded-full bg-blue" />
+                Suggested
+              </h4>
+              <div className="space-y-2.5">{suggested.map((t) => <TaskRow key={t.id} task={t} onAction={updateStatus} />)}</div>
             </div>
           )}
         </div>
@@ -95,30 +104,30 @@ export function SubagentBoard({ project }: { project?: string }) {
 
 function TaskRow({ task, onAction }: { task: SubagentTask; onAction: (id: string, status: string) => void }) {
   return (
-    <div className="rounded-md border border-line bg-bg-elev p-3">
+    <div className="rounded-xl border border-line bg-white p-4 transition-shadow hover:shadow-sm">
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1">
           <div className="flex items-center gap-2">
-            <span className="text-[13px] font-medium">{task.label}</span>
+            <span className="text-[13px] font-medium text-ink">{task.label}</span>
             {task.agent_name && (
-              <span className="rounded bg-bg-soft px-1.5 py-0.5 text-[10px] font-mono text-ink-3">{task.agent_name}</span>
+              <span className="rounded-md bg-bg-soft px-1.5 py-0.5 text-[10px] font-mono text-ink-3">{task.agent_name}</span>
             )}
-            <span className={`rounded-full px-1.5 py-0.5 text-[10px] font-medium ${statusColors[task.status] ?? "bg-bg-soft text-ink-3"}`}>
+            <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${statusColors[task.status] ?? "bg-bg-soft text-ink-3"}`}>
               {task.status}
             </span>
           </div>
-          {task.description && <p className="mt-0.5 text-[12px] text-ink-3">{task.description}</p>}
+          {task.description && <p className="mt-1 text-[12px] text-ink-3">{task.description}</p>}
           {task.rationale && <p className="mt-0.5 text-[11px] italic text-ink-4">{task.rationale}</p>}
         </div>
         <div className="flex gap-1.5 shrink-0">
           {task.log_url && (
-            <a href={task.log_url} target="_blank" rel="noopener noreferrer" className="rounded border border-line bg-bg-soft px-2 py-1 text-[11px] text-ink-3 hover:bg-line">Log</a>
+            <a href={task.log_url} target="_blank" rel="noopener noreferrer" className="rounded-lg border border-line bg-bg-soft px-2.5 py-1 text-[11px] text-ink-3 hover:bg-line">Log</a>
           )}
           {task.status === "suggested" && (
-            <button onClick={() => onAction(task.id, "queued")} className="rounded bg-good px-2 py-1 text-[11px] font-medium text-white hover:bg-good/90">Start</button>
+            <button onClick={() => onAction(task.id, "queued")} className="rounded-lg bg-sage px-2.5 py-1 text-[11px] font-medium text-white hover:bg-sage-deep">Start</button>
           )}
           {(task.status === "running" || task.status === "queued") && (
-            <button onClick={() => onAction(task.id, "killed")} className="rounded border border-bad/30 px-2 py-1 text-[11px] text-bad hover:bg-bad-soft">Kill</button>
+            <button onClick={() => onAction(task.id, "killed")} className="rounded-lg border border-rose/30 px-2.5 py-1 text-[11px] text-rose hover:bg-rose-soft">Kill</button>
           )}
         </div>
       </div>

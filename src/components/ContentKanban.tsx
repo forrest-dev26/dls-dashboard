@@ -56,7 +56,7 @@ export function ContentKanban({ project }: { project?: string }) {
         <h3 className="mb-3 font-display text-base font-medium tracking-tight">Content Pipeline</h3>
         <div className="grid grid-cols-5 gap-3 max-[1100px]:grid-cols-3 max-[700px]:grid-cols-2">
           {COLUMNS.map((c) => (
-            <div key={c} className="h-32 animate-pulse rounded-md bg-bg-soft" />
+            <div key={c} className="h-32 animate-pulse rounded-xl bg-bg-soft" />
           ))}
         </div>
       </div>
@@ -73,7 +73,7 @@ export function ContentKanban({ project }: { project?: string }) {
           {COLUMNS.map((col) => {
             const colItems = items.filter((i) => i.status === col);
             return (
-              <div key={col} className={`rounded-md border border-line border-t-2 ${COLUMN_COLORS[col]} bg-bg-soft p-2`}>
+              <div key={col} className={`rounded-xl border border-line border-t-2 ${COLUMN_COLORS[col]} bg-bg-soft p-2`}>
                 <h4 className="mb-2 text-[11px] font-medium uppercase tracking-wide text-ink-3">
                   {COLUMN_LABELS[col]} ({colItems.length})
                 </h4>

@@ -21,32 +21,37 @@ export default function HomePage() {
   });
 
   return (
-    <main className="mx-auto max-w-[960px] px-6 pt-6 pb-12">
+    <main className="mx-auto max-w-[1060px] px-8 pt-8 pb-16">
       {/* Header */}
-      <div className="mb-6">
-        <h1 className="m-0 font-display text-2xl font-semibold tracking-tight">
+      <div className="mb-8">
+        <h1 className="m-0 text-[28px] font-semibold tracking-tight text-ink">
           {greeting}, Christopher
         </h1>
-        <p className="mt-1 text-[13px] text-ink-3">{dateStr}</p>
+        <p className="mt-1.5 text-[14px] text-ink-3">{dateStr} · Lakeland, FL</p>
       </div>
 
       {/* Pulse strip */}
-      <section className="mb-8">
+      <section className="mb-10">
         <PulseStrip />
       </section>
 
-      {/* Today's Focus */}
-      <section className="mb-8">
-        <ProposalList
-          category="today-focus"
-          title="Today's Focus"
-          emptyText="No focus items for today. Sarah will post them soon."
-          limit={3}
-        />
+      {/* Two-column: Today's Focus + Body-Man Briefing */}
+      <section className="mb-10 grid grid-cols-[1.2fr_1fr] gap-6 max-[900px]:grid-cols-1">
+        <div>
+          <ProposalList
+            category="today-focus"
+            title="Today's Focus"
+            emptyText="No focus items for today. Sarah will post them soon."
+            limit={3}
+          />
+        </div>
+        <div>
+          <OsBriefingCard />
+        </div>
       </section>
 
       {/* Two-column: Recommendations + Waiting on You */}
-      <section className="mb-8 grid grid-cols-2 gap-6 max-[800px]:grid-cols-1">
+      <section className="mb-10 grid grid-cols-2 gap-6 max-[900px]:grid-cols-1">
         <ProposalList
           category="recommendation"
           title="Sarah's Recommendations"
@@ -59,33 +64,28 @@ export default function HomePage() {
         />
       </section>
 
-      {/* Body-Man Briefing */}
-      <section className="mb-8">
-        <OsBriefingCard />
-      </section>
-
       {/* What's Running */}
-      <section className="mb-8">
+      <section className="mb-10">
         <RunningTasksPanel />
       </section>
 
       {/* Subagent Board (aggregate) */}
-      <section className="mb-8">
+      <section className="mb-10">
         <SubagentBoard />
       </section>
 
       {/* Calendar placeholder */}
-      <section className="mb-8">
-        <h3 className="mb-3 font-display text-base font-medium tracking-tight">Calendar</h3>
-        <div className="rounded-md border border-dashed border-line bg-bg-soft p-6 text-center">
-          <p className="text-[13px] text-ink-3">
+      <section className="mb-10">
+        <SectionHeader title="Calendar" />
+        <div className="rounded-xl border border-dashed border-line bg-bg-card p-8 text-center">
+          <p className="text-[13px] text-ink-4">
             Calendar integration coming in Phase 4.
           </p>
         </div>
       </section>
 
-      <footer className="mt-10 text-center text-[11px] text-ink-3">
-        Personal OS Dashboard · Phase 1 v1 ·{" "}
+      <footer className="mt-12 text-center text-[11px] text-ink-4">
+        Personal OS Dashboard · Phase 1 v1.5 ·{" "}
         {new Date().toLocaleDateString("en-US", {
           year: "numeric",
           month: "long",
@@ -93,6 +93,12 @@ export default function HomePage() {
         })}
       </footer>
     </main>
+  );
+}
+
+function SectionHeader({ title }: { title: string }) {
+  return (
+    <h3 className="mb-4 text-[16px] font-semibold tracking-tight text-ink">{title}</h3>
   );
 }
 

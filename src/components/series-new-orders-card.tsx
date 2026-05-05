@@ -18,7 +18,7 @@ export function SeriesNewOrdersCard({ data }: { data: SeriesNewOrdersResult }) {
   const seriesKeys: Exclude<SeriesKey, "Other">[] = ["Salem", "Titanic", "Asylum"];
 
   return (
-    <div className="rounded-md border border-line bg-bg-card px-5 py-4">
+    <div className="rounded-xl border border-line bg-white px-5 py-4">
       <div className="mb-3.5">
         <h3 className="m-0 font-display text-base font-medium">New orders yesterday</h3>
         <span className="text-[11px] text-ink-3">{dateLabel}</span>

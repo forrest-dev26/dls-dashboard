@@ -23,37 +23,50 @@ export function PulseStrip() {
 
   if (!pulse) {
     return (
-      <div className="flex gap-3">
+      <div className="grid grid-cols-5 gap-3 max-[700px]:grid-cols-3">
         {[1, 2, 3, 4, 5].map((i) => (
-          <div key={i} className="h-10 w-24 animate-pulse rounded bg-bg-soft" />
+          <div key={i} className="h-[72px] animate-pulse rounded-xl bg-bg-soft" />
         ))}
       </div>
     );
   }
 
   const tiles = [
-    { label: "Proposals", value: pulse.pending_proposals, alert: pulse.pending_proposals > 5 },
-    { label: "Tasks", value: pulse.today_tasks_open },
-    { label: "Agents", value: pulse.agents_running },
-    { label: "Blockers", value: pulse.blockers_open, alert: pulse.blockers_open > 0 },
-    { label: "Nudges", value: pulse.relationship_nudges_due },
+    { label: "Proposals", value: pulse.pending_proposals, alert: pulse.pending_proposals > 5, color: "sage" as const },
+    { label: "Tasks", value: pulse.today_tasks_open, alert: false, color: "blue" as const },
+    { label: "Agents", value: pulse.agents_running, alert: false, color: "gold" as const },
+    { label: "Blockers", value: pulse.blockers_open, alert: pulse.blockers_open > 0, color: "rose" as const },
+    { label: "Nudges", value: pulse.relationship_nudges_due, alert: false, color: "blue" as const },
   ];
 
+  const colorMap = {
+    sage: { dot: "bg-sage", text: "text-sage" },
+    blue: { dot: "bg-blue", text: "text-blue" },
+    gold: { dot: "bg-gold", text: "text-gold" },
+    rose: { dot: "bg-rose", text: "text-rose" },
+  };
+
   return (
-    <Link href="/pulse" className="flex flex-wrap gap-2">
-      {tiles.map((t) => (
-        <div
-          key={t.label}
-          className={`flex items-center gap-2 rounded-md border px-3 py-2 text-[12px] ${
-            t.alert ? "border-bad/40 bg-bad-soft" : "border-line bg-bg-elev"
-          }`}
-        >
-          <span className={`font-display text-lg font-semibold ${t.alert ? "text-bad" : "text-ink"}`}>
-            {t.value}
-          </span>
-          <span className="text-ink-3">{t.label}</span>
-        </div>
-      ))}
+    <Link href="/pulse" className="grid grid-cols-5 gap-3 max-[700px]:grid-cols-3">
+      {tiles.map((t) => {
+        const colors = t.alert
+          ? { bg: "bg-rose-soft border-rose/30", num: "text-rose-deep" }
+          : { bg: "bg-white border-line", num: "text-ink" };
+        return (
+          <div
+            key={t.label}
+            className={`flex flex-col rounded-xl border px-4 py-3.5 transition-shadow hover:shadow-sm ${colors.bg}`}
+          >
+            <div className="flex items-center gap-1.5 mb-1.5">
+              <span className={`h-1.5 w-1.5 rounded-full ${t.alert ? "bg-rose" : colorMap[t.color].dot}`} />
+              <span className="text-[11px] font-medium uppercase tracking-wide text-ink-3">{t.label}</span>
+            </div>
+            <span className={`text-[24px] font-semibold leading-none ${colors.num}`}>
+              {t.value}
+            </span>
+          </div>
+        );
+      })}
     </Link>
   );
 }

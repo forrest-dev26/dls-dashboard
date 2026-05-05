@@ -13,10 +13,10 @@ interface Decision {
 }
 
 const decisionColors: Record<string, string> = {
-  approved: "text-good bg-good-soft",
-  rejected: "text-bad bg-bad-soft",
-  snoozed: "text-warn bg-warn-soft",
-  revising: "text-gold-deep bg-gold-soft",
+  approved: "text-sage-deep bg-sage-soft",
+  rejected: "text-rose bg-rose-soft",
+  snoozed: "text-gold-deep bg-gold-soft",
+  revising: "text-blue bg-blue-soft",
 };
 
 export function DecisionsLog() {
@@ -43,7 +43,7 @@ export function DecisionsLog() {
 
   return (
     <div>
-      <div className="mb-4 flex items-center gap-3">
+      <div className="mb-4">
         <input
           type="text"
           placeholder="Search decisions..."
@@ -52,32 +52,32 @@ export function DecisionsLog() {
             setSearch(e.target.value);
             setPage(0);
           }}
-          className="flex-1 rounded-md border border-line bg-bg-soft px-3 py-2 text-[13px] text-ink outline-none placeholder:text-ink-4 focus:border-gold"
+          className="w-full rounded-xl border border-line bg-white px-4 py-2.5 text-[13px] text-ink outline-none placeholder:text-ink-4 focus:border-sage focus:ring-1 focus:ring-sage/20"
         />
       </div>
 
       {loading ? (
-        <div className="space-y-2">
+        <div className="space-y-2.5">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-14 animate-pulse rounded-md bg-bg-soft" />
+            <div key={i} className="h-16 animate-pulse rounded-xl bg-bg-soft" />
           ))}
         </div>
       ) : decisions.length === 0 ? (
         <p className="text-[13px] text-ink-3">No decisions found.</p>
       ) : (
-        <div className="space-y-2">
+        <div className="space-y-2.5">
           {decisions.map((d) => (
-            <div key={d.id} className="rounded-md border border-line bg-bg-elev p-3">
+            <div key={d.id} className="rounded-xl border border-line bg-white p-4 transition-shadow hover:shadow-sm">
               <div className="flex items-start justify-between gap-3">
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
-                    <span className={`rounded-full px-1.5 py-0.5 text-[10px] font-medium ${decisionColors[d.decision] ?? "bg-bg-soft text-ink-3"}`}>
+                    <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${decisionColors[d.decision] ?? "bg-bg-soft text-ink-3"}`}>
                       {d.decision}
                     </span>
-                    <span className="text-[13px] font-medium">{d.proposal_title ?? `Proposal ${d.proposal_id?.slice(0, 8) ?? "—"}`}</span>
+                    <span className="text-[13px] font-medium text-ink">{d.proposal_title ?? `Proposal ${d.proposal_id?.slice(0, 8) ?? "—"}`}</span>
                     <span className="text-[10px] text-ink-4">via {d.decided_via}</span>
                   </div>
-                  {d.note && <p className="mt-0.5 text-[12px] text-ink-3">{d.note}</p>}
+                  {d.note && <p className="mt-1 text-[12px] text-ink-3">{d.note}</p>}
                 </div>
                 <span className="shrink-0 text-[11px] text-ink-4">
                   {new Date(d.created_at).toLocaleDateString()}
@@ -88,19 +88,19 @@ export function DecisionsLog() {
         </div>
       )}
 
-      {decisions.length > 0 && <div className="mt-4 flex justify-center gap-2">
+      {decisions.length > 0 && <div className="mt-5 flex justify-center gap-2">
         <button
           disabled={page === 0}
           onClick={() => setPage(page - 1)}
-          className="rounded border border-line bg-bg-soft px-3 py-1 text-[12px] text-ink-3 disabled:opacity-30"
+          className="rounded-lg border border-line bg-white px-3.5 py-1.5 text-[12px] text-ink-3 transition-colors hover:bg-bg-soft disabled:opacity-30"
         >
           Previous
         </button>
-        <span className="px-2 py-1 text-[12px] text-ink-4">Page {page + 1}</span>
+        <span className="px-3 py-1.5 text-[12px] text-ink-4">Page {page + 1}</span>
         <button
           disabled={decisions.length < PAGE_SIZE}
           onClick={() => setPage(page + 1)}
-          className="rounded border border-line bg-bg-soft px-3 py-1 text-[12px] text-ink-3 disabled:opacity-30"
+          className="rounded-lg border border-line bg-white px-3.5 py-1.5 text-[12px] text-ink-3 transition-colors hover:bg-bg-soft disabled:opacity-30"
         >
           Next
         </button>

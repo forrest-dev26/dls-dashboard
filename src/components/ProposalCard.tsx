@@ -42,7 +42,7 @@ export function ProposalCard({
 
   if (decided) {
     return (
-      <div className="rounded-md border border-line bg-bg-soft p-4 opacity-60">
+      <div className="rounded-xl border border-line bg-bg-soft p-4 opacity-60">
         <p className="text-[13px] text-ink-3">
           <strong>{proposal.title}</strong> — done
         </p>
@@ -51,11 +51,11 @@ export function ProposalCard({
   }
 
   return (
-    <div className="rounded-md border border-line bg-bg-elev p-4">
-      <div className="mb-1 flex items-start justify-between gap-3">
-        <h4 className="m-0 text-[14px] font-medium leading-snug">{proposal.title}</h4>
+    <div className="rounded-xl border border-line bg-white p-5 transition-shadow hover:shadow-sm">
+      <div className="mb-1.5 flex items-start justify-between gap-3">
+        <h4 className="m-0 text-[14px] font-semibold leading-snug text-ink">{proposal.title}</h4>
         {proposal.project && (
-          <span className="shrink-0 rounded-full bg-bg-soft px-2 py-0.5 text-[10px] uppercase tracking-wide text-ink-3">
+          <span className="shrink-0 rounded-full bg-bg-soft px-2.5 py-0.5 text-[10px] uppercase tracking-wide text-ink-3">
             {proposal.project}
           </span>
         )}
@@ -68,23 +68,23 @@ export function ProposalCard({
           href={proposal.context_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-1 inline-block text-[12px] text-burgundy hover:underline"
+          className="mt-1.5 inline-block text-[12px] text-sage-deep hover:underline"
         >
           View context →
         </a>
       )}
-      <div className="mt-3 flex gap-2">
+      <div className="mt-4 flex gap-2">
         <ActionBtn
           label="Yes"
           onClick={() => decide("approved")}
           loading={loading === "approved"}
-          className="border border-good bg-bg-soft text-good hover:bg-good/10"
+          className="border border-sage bg-sage-soft text-sage-deep hover:bg-sage/10"
         />
         <ActionBtn
           label="No"
           onClick={() => decide("rejected")}
           loading={loading === "rejected"}
-          className="border border-bad bg-bg-soft text-bad hover:bg-bad/10"
+          className="border border-rose bg-rose-soft text-rose-deep hover:bg-rose/10"
         />
         <ActionBtn
           label="Revise"
@@ -118,7 +118,7 @@ function ActionBtn({
     <button
       onClick={onClick}
       disabled={loading}
-      className={`rounded-sm px-3 py-1.5 text-[12px] font-medium transition-colors ${className} ${
+      className={`rounded-lg px-3.5 py-1.5 text-[12px] font-medium transition-colors ${className} ${
         loading ? "opacity-50" : ""
       }`}
     >

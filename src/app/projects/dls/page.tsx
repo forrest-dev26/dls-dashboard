@@ -66,10 +66,8 @@ export default async function DlsPage() {
   const insights = buildInsights({ cac7d: todayCac, yesterdayCac, flows });
 
   return (
-    <div className="grid min-h-screen grid-cols-[240px_1fr] bg-bg max-[1100px]:grid-cols-1">
-      <Sidebar cac7d={todayCac} spendThisWeek={spend7d} />
-
-      <main className="px-8 pt-7 pb-10 max-w-[1400px] max-[1100px]:px-4">
+    <div className="min-h-screen bg-bg">
+      <main className="mx-auto max-w-[1200px] px-8 pt-7 pb-10 max-[1100px]:px-4">
         <Topbar todaySpend={todaySpend} apiHealth={metrics ? "ok" : "degraded"} />
 
         <section className="grid grid-cols-6 gap-3 max-[1100px]:grid-cols-3 max-[700px]:grid-cols-2">
@@ -218,7 +216,7 @@ function ScheduleCard() {
   };
 
   return (
-    <div className="rounded-md border border-line bg-bg-elev p-4 px-5">
+    <div className="rounded-xl border border-line bg-white p-4 px-5">
       <h3 className="m-0 mb-3 font-display text-base font-medium">Today&apos;s schedule</h3>
       {items.map((it, i) => (
         <div
@@ -245,7 +243,7 @@ function AlertsCard({ flows }: { flows: Array<{ name: string; status: string }> 
   const alertCount = draftFlows.length > 0 ? Math.min(draftFlows.length, 3) : 0;
 
   return (
-    <div className="rounded-md border border-line bg-bg-elev p-4 px-5 border-l-[3px] border-l-burgundy">
+    <div className="rounded-xl border border-line bg-white p-4 px-5 border-l-[3px] border-l-burgundy">
       <h3 className="m-0 mb-3 font-display text-base font-medium text-burgundy">
         Open alerts · {alertCount}
       </h3>
@@ -256,7 +254,7 @@ function AlertsCard({ flows }: { flows: Array<{ name: string; status: string }> 
               <strong>{f.name}</strong>
               <div className="mt-0.5 text-[12px] text-ink-3">Flow in draft. Review before activating.</div>
             </div>
-            <button className="rounded-sm border border-line bg-bg-soft px-3 py-1.5 text-[12px] font-medium hover:bg-line">
+            <button className="rounded-lg border border-line bg-bg-soft px-3 py-1.5 text-[12px] font-medium hover:bg-line">
               Review
             </button>
           </div>

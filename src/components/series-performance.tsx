@@ -7,7 +7,7 @@ export function SeriesPerformance({ window }: { window: BlendedCacWindow | null 
 
   if (!window) {
     return (
-      <div className="rounded-md border border-line bg-bg-elev p-5 text-[13px] text-ink-3">
+      <div className="rounded-xl border border-line bg-white p-5 text-[13px] text-ink-3">
         Series data unavailable. Check API connections.
       </div>
     );
@@ -58,7 +58,7 @@ export function SeriesPerformance({ window }: { window: BlendedCacWindow | null 
           }[tone];
 
           return (
-            <div key={s.name} className="overflow-hidden rounded-md border border-line bg-bg-elev">
+            <div key={s.name} className="overflow-hidden rounded-xl border border-line bg-white">
               <div className={`px-4 pb-2.5 pt-3.5 text-white ${s.headerClass}`}>
                 <h4 className="m-0 font-display text-base font-medium">{s.name}</h4>
                 <div className="mt-0.5 text-[11px] text-white/70">

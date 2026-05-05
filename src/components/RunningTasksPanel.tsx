@@ -12,9 +12,9 @@ interface RunningTask {
 }
 
 const statusColors: Record<string, string> = {
-  running: "bg-good-soft text-good",
+  running: "bg-sage-soft text-sage-deep",
   completed: "bg-bg-soft text-ink-3",
-  failed: "bg-bad-soft text-bad",
+  failed: "bg-rose-soft text-rose",
   killed: "bg-bg-soft text-ink-3",
 };
 
@@ -31,26 +31,30 @@ export function RunningTasksPanel() {
 
   return (
     <div>
-      <h3 className="mb-3 font-display text-base font-medium tracking-tight">
+      <h3 className="mb-4 text-[16px] font-semibold tracking-tight text-ink">
         What&apos;s Running
       </h3>
       {loading ? (
-        <p className="text-[13px] text-ink-3">Loading...</p>
+        <div className="space-y-2.5">
+          {[1, 2].map((i) => (
+            <div key={i} className="h-12 animate-pulse rounded-xl bg-bg-soft" />
+          ))}
+        </div>
       ) : tasks.length === 0 ? (
         <p className="text-[13px] text-ink-3">No background tasks running.</p>
       ) : (
-        <div className="space-y-2">
+        <div className="space-y-2.5">
           {tasks.map((t) => (
             <div
               key={t.id}
-              className="flex items-center justify-between rounded-md border border-line bg-bg-elev px-4 py-2.5"
+              className="flex items-center justify-between rounded-xl border border-line bg-white px-5 py-3 transition-shadow hover:shadow-sm"
             >
-              <div>
-                <span className="text-[13px] font-medium">{t.label}</span>
-                <span className="ml-2 text-[11px] text-ink-3">{t.task_type}</span>
+              <div className="flex items-center gap-3">
+                <span className="text-[13px] font-medium text-ink">{t.label}</span>
+                <span className="text-[11px] text-ink-3">{t.task_type}</span>
               </div>
               <span
-                className={`rounded-full px-2 py-0.5 text-[10px] font-medium uppercase ${
+                className={`rounded-full px-2.5 py-0.5 text-[10px] font-medium uppercase ${
                   statusColors[t.status] ?? "bg-bg-soft text-ink-3"
                 }`}
               >
