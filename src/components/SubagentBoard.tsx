@@ -56,7 +56,7 @@ export function SubagentBoard({ project }: { project?: string }) {
 
   return (
     <div>
-      <h3 className="mb-4 text-[16px] font-semibold tracking-tight text-ink">
+      <h3 className="mb-4 font-display text-[16px] font-medium text-ink" style={{ letterSpacing: '-0.01em' }}>
         Subagent Board
       </h3>
       {loading ? (

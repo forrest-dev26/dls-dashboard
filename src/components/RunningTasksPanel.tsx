@@ -31,7 +31,7 @@ export function RunningTasksPanel() {
 
   return (
     <div>
-      <h3 className="mb-4 text-[16px] font-semibold tracking-tight text-ink">
+      <h3 className="mb-4 font-display text-[16px] font-medium text-ink" style={{ letterSpacing: '-0.01em' }}>
         What&apos;s Running
       </h3>
       {loading ? (

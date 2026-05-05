@@ -26,7 +26,7 @@ export function BodyManBriefing() {
     <div className="space-y-6">
       {/* Pillar status */}
       <div>
-        <h3 className="mb-4 text-[16px] font-semibold tracking-tight text-ink">Six Pillars</h3>
+        <h3 className="mb-4 font-display text-[16px] font-medium text-ink">Six Pillars</h3>
         <PillarStrip />
       </div>
 

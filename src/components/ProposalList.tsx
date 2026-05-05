@@ -54,7 +54,7 @@ export function ProposalList({
 
   return (
     <div>
-      <h3 className="mb-4 text-[16px] font-semibold tracking-tight text-ink">{title}</h3>
+      {title && <h3 className="mb-4 font-display text-[16px] font-medium text-ink" style={{ letterSpacing: '-0.01em' }}>{title}</h3>}
       {loading ? (
         <div className="space-y-3">
           {[1, 2].map((i) => (
