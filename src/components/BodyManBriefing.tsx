@@ -63,9 +63,8 @@ export function BodyManBriefing() {
       <div className="rounded-md border border-line bg-bg-elev p-4">
         <h4 className="mb-2 text-[12px] font-medium uppercase tracking-wide text-ink-3">Today&apos;s Schedule</h4>
         <div className="space-y-1.5 text-[13px]">
-          <div className="flex justify-between">
+          <div>
             <span>Tuesday 11:15 AM — Injection appointment</span>
-            <span className="text-[11px] text-ink-4">hardcoded</span>
           </div>
         </div>
         <p className="mt-2 text-[11px] text-ink-4">Calendar integration — Phase 4</p>
