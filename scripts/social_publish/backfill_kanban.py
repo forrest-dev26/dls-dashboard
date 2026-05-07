@@ -31,10 +31,17 @@ def sanitize(text: str) -> str:
 
 
 def truncate_title(body: str, max_len: int = 80) -> str:
-    """First max_len chars of body, ending at a word boundary."""
-    if len(body) <= max_len:
-        return body
-    truncated = body[:max_len]
+    """First paragraph of body, collapsed to one line, truncated at word boundary."""
+    import re
+    # Strip leading emoji (common U+1Fxxx range) or ?? artifacts
+    text = re.sub(r"^(?:\?\? |[\U0001F000-\U0001FAFF]\s*)", "", body).strip()
+    # Take first paragraph (before double newline)
+    first_para = text.split("\n\n", 1)[0]
+    # Collapse internal newlines to single space
+    first_para = " ".join(first_para.split())
+    if len(first_para) <= max_len:
+        return first_para
+    truncated = first_para[:max_len]
     last_space = truncated.rfind(" ")
     if last_space > 20:
         truncated = truncated[:last_space]
@@ -50,6 +57,7 @@ def main():
     print(f"  Generated {len(posts)} posts.")
 
     conn = psycopg2.connect(DB)
+    conn.set_client_encoding("UTF8")
     cur = conn.cursor()
     inserted = []
 
