@@ -12,6 +12,7 @@ interface ContentItem {
   platform: string | null;
   status: string;
   image_url: string | null;
+  metadata?: Record<string, unknown> | null;
 }
 
 const STATUS_LABELS: Record<string, string> = {
@@ -91,6 +92,17 @@ export function ContentCardLarge({
               )}
             </div>
             <h4 className="mb-2 text-base font-semibold leading-snug">{item.title}</h4>
+            {typeof item.metadata?.fb_url === "string" && (
+              <a
+                href={item.metadata.fb_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mb-2 flex items-center gap-1 text-[12px] text-blue hover:underline"
+              >
+                <span className="truncate">{item.metadata.fb_url}</span>
+                <span className="shrink-0">↗</span>
+              </a>
+            )}
             {item.body && (
               <p className="mb-3 whitespace-pre-wrap text-[13px] leading-relaxed text-ink-2">{item.body}</p>
             )}

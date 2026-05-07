@@ -12,6 +12,7 @@ interface ContentItem {
   platform: string | null;
   status: string;
   image_url: string | null;
+  metadata?: Record<string, unknown> | null;
 }
 
 export function ContentCard({
@@ -65,6 +66,17 @@ export function ContentCard({
             <span className="rounded bg-bg-soft px-1 py-0.5 text-[9px] text-ink-4">{item.platform}</span>
           )}
         </div>
+        {typeof item.metadata?.fb_url === "string" && (
+          <a
+            href={item.metadata.fb_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-1.5 flex items-center gap-1 text-[11px] text-blue hover:underline"
+          >
+            <span className="truncate">{item.metadata.fb_url}</span>
+            <span className="shrink-0">↗</span>
+          </a>
+        )}
         {item.body && (
           <p className="mt-1.5 text-[11px] leading-relaxed text-ink-3 line-clamp-3">{item.body}</p>
         )}
