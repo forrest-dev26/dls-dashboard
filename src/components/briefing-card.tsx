@@ -33,7 +33,7 @@ export function BriefingCard({ insights }: { insights: Insight[] }) {
       return;
     }
     if (label === "Jump to posts") {
-      document.getElementById("posts-queue")?.scrollIntoView({ behavior: "smooth" });
+      document.querySelector("[data-kanban]")?.scrollIntoView({ behavior: "smooth" });
     }
   }
 

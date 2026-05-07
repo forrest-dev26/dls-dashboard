@@ -12,7 +12,6 @@ import { BriefingCard } from "@/components/briefing-card";
 import { SeriesPerformance } from "@/components/series-performance";
 import { ActivityFeed } from "@/components/activity-feed";
 import { FlowStatus } from "@/components/flow-status";
-import { PostsQueue } from "@/components/posts-queue";
 import { ProposalList } from "@/components/ProposalList";
 import { DailyTaskList } from "@/components/DailyTaskList";
 import { ContentKanban } from "@/components/ContentKanban";
@@ -150,8 +149,6 @@ export default async function DlsPage() {
         <SectionTitle title="Series performance · last 7 days" link="View all metrics →" />
         <SeriesPerformance window={metrics?.cac7d ?? null} />
 
-        <SectionTitle title="Posts queued for today" subtitle="3 drafted · ready for your review" />
-        <PostsQueue />
 
         <section className="mt-6 grid grid-cols-[1.4fr_1fr] gap-4 max-[1100px]:grid-cols-1">
           <ActivityFeed items={activity} />

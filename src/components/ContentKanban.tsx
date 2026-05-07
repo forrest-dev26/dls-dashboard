@@ -64,7 +64,7 @@ export function ContentKanban({ project }: { project?: string }) {
   }
 
   return (
-    <div>
+    <div data-kanban>
       <h3 className="mb-3 font-display text-base font-medium tracking-tight">Content Pipeline</h3>
       {items.length === 0 ? (
         <p className="text-[13px] text-ink-3">No content items yet. Sarah will populate the pipeline.</p>
