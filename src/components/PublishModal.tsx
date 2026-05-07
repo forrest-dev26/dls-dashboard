@@ -32,6 +32,12 @@ export function PublishModal({
   const [violations, setViolations] = useState<Violation[]>([]);
   const [errorMsg, setErrorMsg] = useState("");
 
+  const imgSrc = item.image_url
+    ? item.image_url.startsWith("http")
+      ? item.image_url
+      : `/api/social-image?path=${encodeURIComponent(item.image_url)}`
+    : null;
+
   async function publish() {
     setState("posting");
     try {
@@ -109,10 +115,10 @@ export function PublishModal({
         {/* Body preview (show in all states except success) */}
         {state !== "success" && (
           <>
-            {item.image_url && (
+            {imgSrc && (
               <div className="mb-3 aspect-video overflow-hidden rounded-lg bg-bg-soft">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={item.image_url} alt="" className="h-full w-full object-cover" />
+                <img src={imgSrc} alt="" className="h-full w-full object-cover" />
               </div>
             )}
             <div className="mb-4 max-h-48 overflow-y-auto rounded-lg bg-bg-soft p-3">

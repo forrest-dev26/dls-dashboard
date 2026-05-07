@@ -40,13 +40,19 @@ export function ContentCard({
 
   const canPublish = item.status === "reviewed" || item.status === "scheduled";
 
+  const imgSrc = item.image_url
+    ? item.image_url.startsWith("http")
+      ? item.image_url
+      : `/api/social-image?path=${encodeURIComponent(item.image_url)}`
+    : null;
+
   return (
     <>
       <div className="rounded-xl border border-line bg-white p-3">
-        {item.image_url && (
+        {imgSrc && (
           <div className="mb-2 aspect-video overflow-hidden rounded bg-bg-soft">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={item.image_url} alt={item.title} className="h-full w-full object-cover" />
+            <img src={imgSrc} alt={item.title} className="h-full w-full object-cover" />
           </div>
         )}
         <p className="text-[12px] font-medium leading-snug">{item.title}</p>
