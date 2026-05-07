@@ -5,6 +5,7 @@ import { fetchDashboardMetrics } from "@/lib/metrics";
 import { fetchRecentActivity, fetchYesterdaysSeriesNewOrders } from "@/lib/shopify";
 import { fetchFlowsResult } from "@/lib/klaviyo";
 import { fetchCampaignBreakdown } from "@/lib/meta";
+import { fetchTodaySchedule, type ScheduleItem } from "@/lib/schedule";
 import { SeriesNewOrdersCard } from "@/components/series-new-orders-card";
 import { Sidebar } from "@/components/sidebar";
 import { Topbar } from "@/components/topbar";
@@ -23,12 +24,13 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export default async function DlsPage() {
-  const [metricsResult, activityResult, flowsResult, seriesOrdersResult, campaignResult] = await Promise.allSettled([
+  const [metricsResult, activityResult, flowsResult, seriesOrdersResult, campaignResult, scheduleResult] = await Promise.allSettled([
     fetchDashboardMetrics(),
     fetchRecentActivity(8),
     fetchFlowsResult(),
     fetchYesterdaysSeriesNewOrders(),
     fetchCampaignBreakdown(7),
+    fetchTodaySchedule(),
   ]);
 
   const metrics = metricsResult.status === "fulfilled" ? metricsResult.value : null;
@@ -43,6 +45,7 @@ export default async function DlsPage() {
     ? seriesOrdersResult.value
     : { date: "", series: { Salem: { count: 0, orders: [] }, Titanic: { count: 0, orders: [] }, Asylum: { count: 0, orders: [] }, Other: { count: 0, orders: [] } }, total: 0 };
   const campaignData = campaignResult.status === "fulfilled" ? campaignResult.value : null;
+  const scheduleItems: ScheduleItem[] = scheduleResult.status === "fulfilled" ? scheduleResult.value : [];
 
   const todayCac = metrics?.cac7d.blendedCacWindow ?? null;
   const yesterdayCac = metrics?.yesterdayCac.blendedCac ?? null;
@@ -145,7 +148,7 @@ export default async function DlsPage() {
           <BriefingCard insights={insights} />
           <div className="space-y-4">
             <SeriesNewOrdersCard data={seriesOrders} />
-            <ScheduleCard />
+            <ScheduleCard items={scheduleItems} />
             <AlertsCard flows={flows} />
           </div>
         </section>
@@ -219,24 +222,20 @@ function SectionTitle({
   );
 }
 
-function ScheduleCard() {
-  const items = [
-    { time: "9:00 AM", what: "Social engine posted", tag: "done" },
-    { time: "10:00 AM", what: "Creative engine ran", tag: "done" },
-    { time: "2:00 PM", what: "Meta Ads Daily Review", tag: "scheduled" },
-    { time: "3:00 PM", what: "Manhattan Project check", tag: "scheduled" },
-    { time: "11:00 PM", what: "Daily journal entry", tag: "scheduled" },
-  ];
-
+function ScheduleCard({ items }: { items: ScheduleItem[] }) {
   const tagClass: Record<string, string> = {
     done: "bg-good-soft text-good",
     scheduled: "bg-gold-soft text-gold-deep",
     error: "bg-bad-soft text-bad",
+    disabled: "bg-bg-soft text-ink-4",
   };
 
   return (
     <div className="rounded-xl border border-line bg-white p-4 px-5">
       <h3 className="m-0 mb-3 font-display text-base font-medium">Today&apos;s schedule</h3>
+      {items.length === 0 && (
+        <div className="py-2 text-[12px] text-ink-3">No DLS-related crons scheduled for today.</div>
+      )}
       {items.map((it, i) => (
         <div
           key={i}
@@ -244,9 +243,9 @@ function ScheduleCard() {
         >
           <div className="font-mono text-[12px] text-ink-3">{it.time}</div>
           <div>
-            {it.what}{" "}
+            {it.label}{" "}
             <span
-              className={`ml-2 inline-block rounded-full px-1.5 py-0.5 text-[10px] ${tagClass[it.tag]}`}
+              className={`ml-2 inline-block rounded-full px-1.5 py-0.5 text-[10px] ${tagClass[it.tag] ?? tagClass.scheduled}`}
             >
               {it.tag}
             </span>
