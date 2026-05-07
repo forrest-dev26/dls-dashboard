@@ -16,6 +16,7 @@ import { ProposalList } from "@/components/ProposalList";
 import { DailyTaskList } from "@/components/DailyTaskList";
 import { ContentKanban } from "@/components/ContentKanban";
 import { SubagentBoard } from "@/components/SubagentBoard";
+import { DailyAdProposal } from "@/components/DailyAdProposal";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -153,6 +154,11 @@ export default async function DlsPage() {
         <section className="mt-6 grid grid-cols-[1.4fr_1fr] gap-4 max-[1100px]:grid-cols-1">
           <ActivityFeed items={activity} />
           <FlowStatus flows={flows} reachable={flowsReachable} error={flowsState.error} />
+        </section>
+
+        {/* Daily Ad Proposal */}
+        <section className="mt-8">
+          <DailyAdProposal />
         </section>
 
         {/* DLS Daily Tasks */}

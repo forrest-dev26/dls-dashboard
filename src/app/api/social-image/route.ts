@@ -3,10 +3,10 @@ import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { homedir } from "node:os";
 
-const ALLOWED_PREFIX = resolve(
-  homedir(),
-  ".openclaw/workspace/manhattan-project/social-engine/content-library",
-);
+const ALLOWED_PREFIXES = [
+  resolve(homedir(), ".openclaw/workspace/manhattan-project/social-engine/content-library"),
+  resolve(homedir(), "Code/dls-dashboard/public/ad-images"),
+];
 
 const MIME: Record<string, string> = {
   ".png": "image/png",
@@ -25,8 +25,9 @@ export async function GET(request: Request) {
 
   const resolved = resolve(raw);
 
-  // Security: must be inside content-library, no traversal
-  if (!resolved.startsWith(ALLOWED_PREFIX + "/")) {
+  // Security: must be inside an allowed directory, no traversal
+  const allowed = ALLOWED_PREFIXES.some((prefix) => resolved.startsWith(prefix + "/"));
+  if (!allowed) {
     return new Response("Forbidden", { status: 403 });
   }
 

@@ -9,7 +9,8 @@
     "db:migrate": "node --import tsx scripts/migrate.ts",
     "db:seed": "node --import tsx scripts/seed.ts",
     "db:reset": "dropdb --if-exists personal_os && createdb personal_os && npm run db:migrate && npm run db:seed",
-    "backfill:social": "python3 scripts/social_publish/backfill_kanban.py"
+    "backfill:social": "python3 scripts/social_publish/backfill_kanban.py",
+    "generate:ad": "python3 scripts/ad_engine/generate_daily_ad.py"
   },
   "dependencies": {
     "next": "16.2.4",
