@@ -37,7 +37,16 @@ export async function POST(_req: Request, { params }: { params: Promise<{ id: st
   }
   const item = rows[0];
 
-  // 2. Status check
+  // 2. Idempotency guard — if already published, return 409 with existing post info
+  if (item.status === "published") {
+    const meta = item.metadata ?? {};
+    return Response.json(
+      { error: "Already published", fb_post_id: meta.fb_post_id ?? null, fb_url: meta.fb_url ?? null },
+      { status: 409, headers: { "Content-Type": "application/json" } },
+    );
+  }
+
+  // 3. Status check
   if (!PUBLISHABLE.includes(item.status)) {
     return Response.json({ error: `Cannot publish from status '${item.status}'. Must be reviewed or scheduled.` }, { status: 400, headers: { "Content-Type": "application/json" } });
   }
