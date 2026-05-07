@@ -4,6 +4,7 @@
 import { fetchDashboardMetrics } from "@/lib/metrics";
 import { fetchRecentActivity, fetchYesterdaysSeriesNewOrders } from "@/lib/shopify";
 import { fetchFlowsResult } from "@/lib/klaviyo";
+import { fetchCampaignBreakdown } from "@/lib/meta";
 import { SeriesNewOrdersCard } from "@/components/series-new-orders-card";
 import { Sidebar } from "@/components/sidebar";
 import { Topbar } from "@/components/topbar";
@@ -22,11 +23,12 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export default async function DlsPage() {
-  const [metricsResult, activityResult, flowsResult, seriesOrdersResult] = await Promise.allSettled([
+  const [metricsResult, activityResult, flowsResult, seriesOrdersResult, campaignResult] = await Promise.allSettled([
     fetchDashboardMetrics(),
     fetchRecentActivity(8),
     fetchFlowsResult(),
     fetchYesterdaysSeriesNewOrders(),
+    fetchCampaignBreakdown(7),
   ]);
 
   const metrics = metricsResult.status === "fulfilled" ? metricsResult.value : null;
@@ -40,6 +42,7 @@ export default async function DlsPage() {
   const seriesOrders = seriesOrdersResult.status === "fulfilled"
     ? seriesOrdersResult.value
     : { date: "", series: { Salem: { count: 0, orders: [] }, Titanic: { count: 0, orders: [] }, Asylum: { count: 0, orders: [] }, Other: { count: 0, orders: [] } }, total: 0 };
+  const campaignData = campaignResult.status === "fulfilled" ? campaignResult.value : null;
 
   const todayCac = metrics?.cac7d.blendedCacWindow ?? null;
   const yesterdayCac = metrics?.yesterdayCac.blendedCac ?? null;
@@ -148,7 +151,7 @@ export default async function DlsPage() {
         </section>
 
         <SectionTitle title="Series performance · last 7 days" link="View all metrics →" />
-        <SeriesPerformance window={metrics?.cac7d ?? null} />
+        <SeriesPerformance window={metrics?.cac7d ?? null} campaignData={campaignData} />
 
 
         <section className="mt-6 grid grid-cols-[1.4fr_1fr] gap-4 max-[1100px]:grid-cols-1">
