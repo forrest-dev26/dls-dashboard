@@ -4,6 +4,8 @@ DLS Dashboard — Facebook publish helper
 Reads JSON {series, body, image_path} from stdin, posts to Facebook, prints JSON result.
 """
 
+import contextlib
+import io
 import json
 import os
 import sys
@@ -40,9 +42,12 @@ def main():
         print(json.dumps({"ok": False, "error": f"Unknown series: {series}"}))
         return
 
+    # Capture social-engine stdout chatter so it doesn't corrupt our JSON output
+    captured = io.StringIO()
     try:
-        access_token = load_access_token(config["credentials_file"])
-        page_tokens = get_page_tokens(access_token)
+        with contextlib.redirect_stdout(captured):
+            access_token = load_access_token(config["credentials_file"])
+            page_tokens = get_page_tokens(access_token)
     except Exception as e:
         print(json.dumps({"ok": False, "error": f"Token error: {e}"}))
         return
@@ -53,7 +58,17 @@ def main():
         return
 
     post_data = {"body": body, "content_type": "dashboard_publish"}
-    result = publish_post(series, page_config, page_tokens, post_data, config, image_path=image_path)
+    try:
+        with contextlib.redirect_stdout(captured):
+            result = publish_post(series, page_config, page_tokens, post_data, config, image_path=image_path)
+    except Exception as e:
+        print(json.dumps({"ok": False, "error": f"Publish error: {e}"}))
+        return
+    finally:
+        # Write captured social-engine output to stderr for debugging
+        debug_output = captured.getvalue()
+        if debug_output:
+            print(debug_output, file=sys.stderr, end="")
 
     if result and "id" in result:
         fb_post_id = result["id"]
