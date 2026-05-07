@@ -17,7 +17,7 @@ interface Violation {
   matches: string[];
 }
 
-type ModalState = "preview" | "posting" | "violations" | "error" | "success";
+type ModalState = "preview" | "posting" | "violations" | "error" | "success" | "already-published";
 
 export function PublishModal({
   item,
@@ -31,6 +31,7 @@ export function PublishModal({
   const [state, setState] = useState<ModalState>("preview");
   const [violations, setViolations] = useState<Violation[]>([]);
   const [errorMsg, setErrorMsg] = useState("");
+  const [fbUrl, setFbUrl] = useState<string | null>(null);
 
   const imgSrc = item.image_url
     ? item.image_url.startsWith("http")
@@ -46,7 +47,10 @@ export function PublishModal({
       });
       const data = await res.json();
 
-      if (res.status === 422 && data.violations) {
+      if (res.status === 409) {
+        setFbUrl(data.fb_url ?? null);
+        setState("already-published");
+      } else if (res.status === 422 && data.violations) {
         setViolations(data.violations);
         setState("violations");
       } else if (!res.ok) {
@@ -98,10 +102,25 @@ export function PublishModal({
           </div>
         )}
 
+        {/* Already published state */}
+        {state === "already-published" && (
+          <div className="mb-4 rounded-lg border border-good/30 bg-good-soft p-3">
+            <p className="text-[12px] font-medium text-good">Already published</p>
+            {fbUrl && (
+              <a href={fbUrl} target="_blank" rel="noopener noreferrer" className="mt-1 block text-[11px] text-blue underline">
+                {fbUrl}
+              </a>
+            )}
+          </div>
+        )}
+
         {/* Error state */}
         {state === "error" && (
           <div className="mb-4 rounded-lg border border-bad/30 bg-bad-soft p-3">
             <p className="text-[12px] text-bad">{errorMsg}</p>
+            <p className="mt-1 text-[10px] text-ink-3">
+              If you saw this error after a recent attempt, check Facebook before retrying.
+            </p>
           </div>
         )}
 
@@ -112,8 +131,8 @@ export function PublishModal({
           </div>
         )}
 
-        {/* Body preview (show in all states except success) */}
-        {state !== "success" && (
+        {/* Body preview (show in preview/posting/violations/error states) */}
+        {state !== "success" && state !== "already-published" && (
           <>
             {imgSrc && (
               <div className="mb-3 aspect-video overflow-hidden rounded-lg bg-bg-soft">
@@ -131,12 +150,21 @@ export function PublishModal({
 
         {/* Actions */}
         <div className="flex justify-end gap-2">
-          <button
-            onClick={onClose}
-            className="rounded-lg border border-line px-3 py-1.5 text-[12px] text-ink-3 hover:bg-bg-soft"
-          >
-            Cancel
-          </button>
+          {state === "already-published" ? (
+            <button
+              onClick={onClose}
+              className="rounded-lg border border-line px-3 py-1.5 text-[12px] text-ink-3 hover:bg-bg-soft"
+            >
+              Close
+            </button>
+          ) : (
+            <button
+              onClick={onClose}
+              className="rounded-lg border border-line px-3 py-1.5 text-[12px] text-ink-3 hover:bg-bg-soft"
+            >
+              Cancel
+            </button>
+          )}
 
           {state === "violations" && (
             <button
